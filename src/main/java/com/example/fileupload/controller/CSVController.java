@@ -66,6 +66,7 @@ public class CSVController {
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
         InputStreamResource file = new InputStreamResource(fileService.load());
 
+
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
                 .contentType(MediaType.parseMediaType("application/csv"))
