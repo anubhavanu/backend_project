@@ -71,6 +71,7 @@ public class Controller {
         Resource resource = fileSytemStorage.loadFile(filename);
 
         return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
@@ -87,4 +88,15 @@ public class Controller {
 //    }
 
     }
+//    @GetMapping("/redirectWithRedirectPrefix")
+//    public ModelAndView redirectWithUsingRedirectPrefix(ModelMap model, @RequestParam("country") String Country) {
+//        String url = "https://restcountries.com/v3.1/name/";
+//        String s="?fullText=true";
+//          url=url+Country+s;
+//        UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(url);
+//
+//
+//        return new ModelAndView("redirect:url", model);
+//    }
+
 }

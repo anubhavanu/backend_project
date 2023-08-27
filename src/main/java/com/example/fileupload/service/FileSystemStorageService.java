@@ -1,7 +1,6 @@
 package com.example.fileupload.service;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -39,9 +38,7 @@ public class FileSystemStorageService implements IFileSytemStorage {
 //        this.dirLocation = dirLocation;
 
 
-        this.dirLocation = Paths.get(path)
-                .toAbsolutePath()
-                .normalize();
+        this.dirLocation = Paths.get(path).normalize();
 
     }
 
