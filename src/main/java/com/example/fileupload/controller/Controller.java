@@ -1,10 +1,7 @@
 package com.example.fileupload.controller;
 
 import com.example.fileupload.model.User;
-import com.example.fileupload.service.CSVUserService;
-import com.example.fileupload.service.FileSystemStorageService;
-import com.example.fileupload.service.FileUploadService;
-import com.example.fileupload.service.UserService;
+import com.example.fileupload.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -30,6 +27,14 @@ public class Controller {
 
     @Autowired
     FileSystemStorageService fileSytemStorage;
+
+//    @Autowired
+//    Country country;
+
+    @Autowired
+    CountryService countryService;
+
+
 
 //    @Autowired
 //    Validation validation;
@@ -88,15 +93,10 @@ public class Controller {
 //    }
 
     }
-//    @GetMapping("/redirectWithRedirectPrefix")
-//    public ModelAndView redirectWithUsingRedirectPrefix(ModelMap model, @RequestParam("country") String Country) {
-//        String url = "https://restcountries.com/v3.1/name/";
-//        String s="?fullText=true";
-//          url=url+Country+s;
-//        UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(url);
-//
-//
-//        return new ModelAndView("redirect:url", model);
-//    }
+    @GetMapping("/country/search")
+         public void getcountrydata() {
+
+        countryService.getForEntity();
+    }
 
 }
