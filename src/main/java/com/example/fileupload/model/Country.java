@@ -34,6 +34,7 @@ public class Country implements Serializable {
 
 
     @Column(name="imglink")
+
     Flag flags;
 
 //    public Country(String Cname) {
