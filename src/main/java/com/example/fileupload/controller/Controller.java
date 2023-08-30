@@ -1,7 +1,10 @@
 package com.example.fileupload.controller;
 
+import com.example.fileupload.model.Country;
 import com.example.fileupload.model.User;
 import com.example.fileupload.service.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -33,6 +36,8 @@ public class Controller {
 
     @Autowired
     CountryService countryService;
+
+
 
 
 
@@ -94,9 +99,14 @@ public class Controller {
 
     }
     @GetMapping("/country/search")
-         public void getcountrydata() {
+         public void getcountrydata() throws JsonProcessingException {
 
-        countryService.getForEntity();
+        String jsonArray= String.valueOf(countryService.getForEntity());
+        ObjectMapper mapper = new ObjectMapper();
+        Country[] asArray = mapper.readValue(jsonArray, Country[].class);
+        for (int i =0;i<asArray.length;++i)
+        countryService.addCountry(asArray[i]);
+
     }
 
 }

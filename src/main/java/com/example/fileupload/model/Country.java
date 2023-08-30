@@ -18,21 +18,29 @@ import java.io.Serializable;
 @Table(name = "countries")
 public class Country implements Serializable {
 
-
+    @Id
     @Column(name = "countryname")
-    private String countryname;
+    private Cname countryname;
 
 
 
-    @Id
-    @Column(name = "currency")
-    private String currency;
 
-    @Id
+    @Column(name = "currencies")
+    Currency currencies;
+
+
     @Column(name = "capital")
-    private String capital;
+    private String [] capital;
 
-    public Country(String Cname) {
-        this.countryname=Cname;
-    }
+
+    @Column(name="imglink")
+    Flag flags;
+
+//    public Country(String Cname) {
+//        this.countryname=Cname;
+//    }
+@Override
+public String toString() {
+    return "Tutorial [id=" + countryname + ", capital=" + capital + ", currencies=" + currencies + ", flags=" + flags + "]";
+}
 }
