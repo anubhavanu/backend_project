@@ -1,7 +1,6 @@
 package com.example.fileupload.service;
 
-import com.example.fileupload.model.Country;
+import com.example.fileupload.dto.Country;
 
 public interface ICountryService {
-    String addCountry(Country country );
 }
