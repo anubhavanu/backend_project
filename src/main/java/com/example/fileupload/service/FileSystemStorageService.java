@@ -1,6 +1,7 @@
 package com.example.fileupload.service;
 
 import jakarta.annotation.PostConstruct;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -11,7 +12,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+@Data
 @Service
 public class FileSystemStorageService implements IFileSytemStorage {
 

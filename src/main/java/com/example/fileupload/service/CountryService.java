@@ -18,6 +18,9 @@ public class CountryService implements ICountryService{
     @Autowired
     CountryRepository countryRepository;
 
+    @Autowired
+    FileSystemStorageService fileSystemStorageService;
+
 
     public Country[] fetchCountryData() throws JsonProcessingException {
 //        RestTemplate restTemplate = new RestTemplate();
@@ -34,9 +37,14 @@ public class CountryService implements ICountryService{
             CountryImp countryImp=new CountryImp();
             countryImp.setCountry_name(countries[i].getName().getOfficial());
             countryImp.setFlag(countries[i].getFlags().getPng());
+
+//            fileSystemStorageService.loadFile(countryImp.getFlag());
+
+
             String s="";
             if (countries[i].getCapitalInfo().getLatlng() !=null)
             {
+
                 s= String.valueOf(countries[i].getCapitalInfo().getLatlng().get(0))+String.valueOf(countries[i].getCapitalInfo().getLatlng().get(1));
                 countryImp.setGeolocation(s);
             }

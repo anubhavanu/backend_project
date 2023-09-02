@@ -2,6 +2,7 @@ package com.example.fileupload.controller;
 
 import com.example.fileupload.dto.Country;
 import com.example.fileupload.model.User;
+import com.example.fileupload.repository.FlagImgRepository;
 import com.example.fileupload.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 @RestController
 public class Controller {
@@ -35,6 +37,12 @@ public class Controller {
 
     @Autowired
     CountryService countryService;
+
+    @Autowired
+    FlagImgRepository flagImgRepository;
+
+    @Autowired
+    FlagImgService flagImgService;
 
 
 
@@ -101,6 +109,20 @@ public class Controller {
          public void getcountrydata() throws JsonProcessingException {
 
         Country[] countryStr = countryService.fetchCountryData();
+    }
+
+    @GetMapping("/countryFlagImgDownload")
+
+    public String downloadFlagImg()
+    {
+        ArrayList<String> webLink=flagImgRepository.getImgUrls();
+        String s= null;
+        try {
+            s = flagImgService.saveImg(webLink);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return (s);
     }
 
 }
