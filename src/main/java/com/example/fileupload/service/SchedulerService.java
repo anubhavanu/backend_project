@@ -1,13 +1,16 @@
 package com.example.fileupload.service;
 
-import Component.CountryJob;
+import com.example.fileupload.Component.CountryJob;
 import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 
 @Service
-
 public class SchedulerService {
+
+    @Autowired
+    private SchedulerFactoryBean schedulerFactoryBean;
 
     public SchedulerService()
 
@@ -23,12 +26,14 @@ public class SchedulerService {
                   .withIdentity("Simpletrigger")
 
                   .withSchedule(SimpleScheduleBuilder.simpleSchedule()
-                .withIntervalInSeconds(10)
+                .withIntervalInSeconds(300)
                 .repeatForever())
                 .build();
-          Scheduler sd=new StdSchedulerFactory().getScheduler();
-          sd.scheduleJob(jobDetail,st);
-          sd.start();
+
+        Scheduler scheduler= schedulerFactoryBean.getScheduler();
+
+        scheduler.scheduleJob(jobDetail,st);
+        scheduler.start();
 
 
     }
