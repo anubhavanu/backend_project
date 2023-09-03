@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 
 @Service
-public class CountryService implements ICountryService{
+public class CountryService  implements ICountryService{
     @Autowired
     RestTemplate restTemplate;
     @Autowired
@@ -21,11 +21,25 @@ public class CountryService implements ICountryService{
     @Autowired
     FileSystemStorageService fileSystemStorageService;
 
+//
+//    private final SchedulerService schedulerService;
+//    @Autowired
+//    public CountryService(SchedulerService schedulerService) {
+//        this.schedulerService = schedulerService;
+//    }
+//    public void run() throws JsonProcessingException {
+//        final TimerInfo timerInfo=new TimerInfo();
+//        timerInfo.setTotalFireCount(1);
+//        timerInfo.setCallBackData(fetchCountryData());
+//        timerInfo.setInitialOffsetMs(1000);
+//        timerInfo.setRepeatedInterval(300000);
+////        Scheduler.schedule(CountryService.class,timerInfo);
+//    }
 
-    public Country[] fetchCountryData() throws JsonProcessingException {
+     public Country[] fetchCountryData() throws JsonProcessingException {
 //        RestTemplate restTemplate = new RestTemplate();
 //        String fooResourceUrl = "https://restcountries.com/v3.1/name/india?fullText=true";
-        String fooResourceUrl = "https://restcountries.com/v3.1/name/in";
+        String fooResourceUrl = "https://restcountries.com/v3.1/name/u";
 
         String response  = String.valueOf(restTemplate.getForEntity(fooResourceUrl , String.class).getBody());
 
@@ -64,10 +78,12 @@ public class CountryService implements ICountryService{
 
 
         }
+        System.out.println("Runnibg the code");
         countryRepository.saveAll(countryImpList);
 
         return countries;
 
     }
+
 
 }

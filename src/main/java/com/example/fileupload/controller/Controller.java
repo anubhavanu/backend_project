@@ -5,6 +5,7 @@ import com.example.fileupload.model.User;
 import com.example.fileupload.repository.FlagImgRepository;
 import com.example.fileupload.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -43,6 +44,9 @@ public class Controller {
 
     @Autowired
     FlagImgService flagImgService;
+
+    @Autowired
+    SchedulerService schedulerService;
 
 
 
@@ -124,5 +128,15 @@ public class Controller {
         }
         return (s);
     }
+    @GetMapping("/Schedule")
+    public String scheduleJob() throws SchedulerException, SchedulerException {
+        try {
+            schedulerService.schedule();
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+        return ("job ran successfully");
+    }
+
 
 }
