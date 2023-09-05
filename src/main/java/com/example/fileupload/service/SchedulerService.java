@@ -3,14 +3,13 @@ package com.example.fileupload.service;
 import com.example.fileupload.Component.CountryJob;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SchedulerService {
 
     @Autowired
-    private SchedulerFactoryBean schedulerFactoryBean;
+    private Scheduler scheduler;
 
     public SchedulerService()
 
@@ -30,9 +29,7 @@ public class SchedulerService {
                 .repeatForever())
                 .build();
 
-        Scheduler scheduler= schedulerFactoryBean.getScheduler();
-
-        scheduler.scheduleJob(jobDetail,st);
+//        scheduler.scheduleJob(jobDetail,st);
         scheduler.start();
 
 
