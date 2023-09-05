@@ -11,10 +11,11 @@ public class SchedulerService {
     @Autowired
     private Scheduler scheduler;
 
-    public SchedulerService()
-
-    {
-
+    public void StartSchedulerService() throws SchedulerException {
+        System.out.println("******StartSchedulerService");
+        scheduler.start();
+    }
+    public void SchedulerService(){
 
     }
     public void schedule() throws SchedulerException {
@@ -25,12 +26,11 @@ public class SchedulerService {
                   .withIdentity("Simpletrigger")
 
                   .withSchedule(SimpleScheduleBuilder.simpleSchedule()
-                .withIntervalInSeconds(300)
+                .withIntervalInSeconds(5)
                 .repeatForever())
                 .build();
 
         scheduler.scheduleJob(jobDetail,st);
-        scheduler.start();
 
 
     }
