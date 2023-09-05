@@ -29,7 +29,7 @@ public class SchedulerService {
                 .repeatForever())
                 .build();
 
-//        scheduler.scheduleJob(jobDetail,st);
+        scheduler.scheduleJob(jobDetail,st);
         scheduler.start();
 
 
