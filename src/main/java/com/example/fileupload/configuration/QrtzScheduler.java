@@ -3,12 +3,22 @@ package com.example.fileupload.configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.autoconfigure.quartz.QuartzDataSource;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
 import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
+import java.io.IOException;
 
 @Configuration
 public class QrtzScheduler {
@@ -35,34 +45,44 @@ public class QrtzScheduler {
 
 
 //    @Bean
-//    public SchedulerFactoryBean schedulerFactoryBean(DataSource quartzDataSource) throws IOException {
+//    public SchedulerFactoryBean schedulerFactoryBean() throws IOException {
+//        DataSource quartzDataSource=quartzDataSource();
 //        SchedulerFactoryBean factory = new SchedulerFactoryBean();
 //        factory.setJobFactory(springBeanJobFactory());
 ////        factory.setQuartzProperties(quartzProperties());
-////        factory.setConfigLocation(new ClassPathResource("quartz.properties"));
-////        factory.setDataSource(quartzDataSource);
+//        factory.setConfigLocation(new ClassPathResource("quartz.properties"));
+//        factory.setDataSource(quartzDataSource);
 //        return factory;
 //    }
 
 //    @Bean
-//    @QuartzDataSource
-//    @ConfigurationProperties(prefix = "spring.datasource")
+//    @ConfigurationProperties(prefix = "spring.datasource.quartz")
 //    public DataSource quartzDataSource() {
-////        DataSource ds= DataSourceBuilder.create().build();
-////        return ds;
+//        DataSource ds= DataSourceBuilder.create().build();
+//        return ds;
 //
-//        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-//        dataSourceBuilder.url("jdbc:postgresql://ec2-15-206-91-250.ap-south-1.compute.amazonaws.com:2000/quartz");
-//        dataSourceBuilder.username("user");
-//        dataSourceBuilder.password("password");
-//        dataSourceBuilder.driverClassName("org.quartz.impl.jdbcjobstore.PostgreSQLDelegate");
-//        return dataSourceBuilder.build();
+////        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+////        dataSourceBuilder.url("jdbc:postgresql://ec2-15-206-91-250.ap-south-1.compute.amazonaws.com:2000/quartz");
+////        dataSourceBuilder.username("user");
+////        dataSourceBuilder.password("password");
+////        dataSourceBuilder.driverClassName("org.postgresql.Driver");
+////        return dataSourceBuilder.build();
 //    }
 
-//    @Bean
-//    @QuartzDataSource
-//    public DataSource quartzDataSource() {
-//        return DataSourceBuilder.create().build();
-//    }
+    @Bean(name="quartzproperties")
+    @ConfigurationProperties("spring.datasource.quartz")
+    public DataSourceProperties dataSourceProperties() {
+        DataSourceProperties dsp= new DataSourceProperties();
+        return dsp;
+    }
+
+    @Bean(name="quartzdatasource")
+    @QuartzDataSource
+    @ConfigurationProperties(prefix = "spring.datasource.quartz")
+    public DataSource datasource(@Qualifier("quartzproperties") DataSourceProperties properties){
+        DataSource ds= properties.initializeDataSourceBuilder().build();
+        return ds;
+    }
+
 
 }
