@@ -1,6 +1,7 @@
 package com.example.fileupload.controller;
 
 import com.example.fileupload.dto.Country;
+import com.example.fileupload.dto.Job;
 import com.example.fileupload.model.User;
 import com.example.fileupload.repository.FlagImgRepository;
 import com.example.fileupload.service.*;
@@ -138,5 +139,32 @@ public class Controller {
         return ("job ran successfully");
     }
 
+    @PostMapping("/schedule/job/add")
+    public String addJob(Job job) throws  SchedulerException {
+        try {
+            schedulerService.addJob(job);
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+        return ("job added");
+    }
+    @PostMapping("/schedule/job/update")
+    public String updateJob(Job job) throws  SchedulerException {
+        try {
+            schedulerService.updateJob(job);
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+        return ("job updated");
+    }
+    @PostMapping("/schedule/job/delete/{groupname}/{jobname}")
+    public String deleteJob(@PathVariable String groupname, @PathVariable String jobname) throws  SchedulerException {
+        try {
+            schedulerService.deleteJob(groupname,jobname);
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+        return ("job deleted");
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.example.fileupload.service;
 
 import com.example.fileupload.Component.CountryJob;
+import com.example.fileupload.dto.Job;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,15 @@ public class SchedulerService {
         scheduler.scheduleJob(jobDetail,st);
 
 
+    }
+
+    public void addJob(Job job) {
+
+    }
+
+    public void updateJob(Job job) {
+    }
+
+    public void deleteJob(String groupname, String jobname) {
     }
 }

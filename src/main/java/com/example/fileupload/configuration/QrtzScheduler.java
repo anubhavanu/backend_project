@@ -55,20 +55,6 @@ public class QrtzScheduler {
 //        return factory;
 //    }
 
-//    @Bean
-//    @ConfigurationProperties(prefix = "spring.datasource.quartz")
-//    public DataSource quartzDataSource() {
-//        DataSource ds= DataSourceBuilder.create().build();
-//        return ds;
-//
-////        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-////        dataSourceBuilder.url("jdbc:postgresql://ec2-15-206-91-250.ap-south-1.compute.amazonaws.com:2000/quartz");
-////        dataSourceBuilder.username("user");
-////        dataSourceBuilder.password("password");
-////        dataSourceBuilder.driverClassName("org.postgresql.Driver");
-////        return dataSourceBuilder.build();
-//    }
-
     @Bean(name="quartzproperties")
     @ConfigurationProperties("spring.datasource.quartz")
     public DataSourceProperties dataSourceProperties() {
