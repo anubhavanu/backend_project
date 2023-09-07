@@ -42,6 +42,5 @@ public class SchedulerService {
     public void updateJob(Job job) {
     }
 
-    public void deleteJob(String groupname, String jobname) {
-    }
+
 }

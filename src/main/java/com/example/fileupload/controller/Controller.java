@@ -54,9 +54,6 @@ public class Controller {
     JobScheduler jobScheduler;
 
 
-
-
-
 //    @Autowired
 //    Validation validation;
 
@@ -114,18 +111,18 @@ public class Controller {
 //    }
 
     }
+
     @GetMapping("/country/search")
-         public void getcountrydata() throws JsonProcessingException {
+    public void getcountrydata() throws JsonProcessingException {
 
         Country[] countryStr = countryService.fetchCountryData();
     }
 
     @GetMapping("/countryFlagImgDownload")
 
-    public String downloadFlagImg()
-    {
-        ArrayList<String> webLink=flagImgRepository.getImgUrls();
-        String s= null;
+    public String downloadFlagImg() {
+        ArrayList<String> webLink = flagImgRepository.getImgUrls();
+        String s = null;
         try {
             s = flagImgService.saveImg(webLink);
         } catch (IOException e) {
@@ -133,6 +130,7 @@ public class Controller {
         }
         return (s);
     }
+
     @GetMapping("/Schedule")
     public String scheduleJob() throws SchedulerException, SchedulerException {
         try {
@@ -142,6 +140,7 @@ public class Controller {
         }
         return ("job ran successfully");
     }
+
     @PostMapping("/createJob")
     public String userupload(@RequestBody JobRequest jobRequest) throws IOException, SchedulerException {
         try {
@@ -153,23 +152,28 @@ public class Controller {
     }
 
     @PostMapping("/pause")
-    public String pauseingJob(@RequestBody JobRequest jobRequest) throws  SchedulerException {
+    public String pauseingJob(@RequestBody JobRequest jobRequest) throws SchedulerException {
         return jobScheduler.pause(jobRequest);
 
     }
+
     @PostMapping("/resume")
-    public String resumeJob(@RequestBody JobRequest jobRequest) throws  SchedulerException {
+    public String resumeJob(@RequestBody JobRequest jobRequest) throws SchedulerException {
         return jobScheduler.resume(jobRequest);
 
-   }
+    }
+
     @PostMapping("/job/update")
-    public String updateJob(@RequestBody JobRequest jobRequest) throws  SchedulerException {
+    public String updateJob(@RequestBody JobRequest jobRequest) throws SchedulerException {
         jobScheduler.updateJob(jobRequest);
         return ("job updated");
     }
-//    @PostMapping("/schedule/job/delete/{groupname}/{jobname}")
-//    public String deleteJob(@PathVariable String groupname, @PathVariable String jobname) throws  SchedulerException {
-//        schedulerService.deleteJob(groupname,jobname);
-//        return ("job deleted");
+
+    @PostMapping("/job/delete/{groupname}/{jobname}")
+    public String deleteJob(@PathVariable String groupname, @PathVariable String jobname) throws SchedulerException {
+        jobScheduler.deleteJob(groupname, jobname);
+        return ("job deleted");
     }
+
+}
 
