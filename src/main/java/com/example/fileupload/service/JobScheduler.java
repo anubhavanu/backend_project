@@ -46,7 +46,7 @@ public class JobScheduler  {
 
             CronTrigger st =newTrigger()
                     .withIdentity(jobRequest.getTriggerName(), jobRequest.getGroupName())
-                    .withSchedule(cronSchedule("0/5 0 * * * ?"))
+                    .withSchedule(cronSchedule("0/10 * * * * ?"))
                     .forJob(jobRequest.getJobName(),jobRequest.getGroupName())
 
                     .build();
@@ -64,7 +64,7 @@ public class JobScheduler  {
             JobDetail jd=findJobByName(jobRequest.getJobName(), jobRequest.getGroupName());
             if(jd!=null)
             {
-                scheduler.pauseJob(new JobKey(jobRequest.getJobName(),jobRequest.getTriggerName()));
+                scheduler.pauseJob(new JobKey(jobRequest.getJobName(),jobRequest.getGroupName()));
                 return ("job paused successfully");
             }
             else
@@ -87,5 +87,26 @@ public class JobScheduler  {
         } catch (SchedulerException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String updateJob(JobRequest jobRequest) throws SchedulerException{
+        try {
+            JobDetail jd=findJobByName(jobRequest.getJobName(), jobRequest.getGroupName());
+            if (jd!=null)
+            {
+                CronTrigger st =newTrigger()
+                        .withIdentity(jobRequest.getTriggerName(), jobRequest.getGroupName())
+                        .withSchedule(cronSchedule(jobRequest.getCronExpression()))
+                        .forJob(jobRequest.getJobName(),jobRequest.getGroupName())
+
+                        .build();
+
+                scheduler.rescheduleJob(new TriggerKey(jobRequest.getTriggerName()),st);
+                return ("job updated successfully");
+            }
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+        return ("job not found");
     }
 }

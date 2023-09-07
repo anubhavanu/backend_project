@@ -18,7 +18,7 @@ public class CountryJob implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         try {
 //            CountryService countryService=new CountryService();
-//         countryService.fetchCountryData();
+             countryService.fetchCountryData();
 //
             System.out.println("jhelloooo");
         } catch (Exception e) {

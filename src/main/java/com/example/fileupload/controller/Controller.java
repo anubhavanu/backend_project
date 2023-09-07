@@ -161,12 +161,12 @@ public class Controller {
     public String resumeJob(@RequestBody JobRequest jobRequest) throws  SchedulerException {
         return jobScheduler.resume(jobRequest);
 
+   }
+    @PostMapping("/job/update")
+    public String updateJob(@RequestBody JobRequest jobRequest) throws  SchedulerException {
+        jobScheduler.updateJob(jobRequest);
+        return ("job updated");
     }
-//    @PostMapping("/schedule/job/update")
-//    public String updateJob(JobRequest job) throws  SchedulerException {
-//        schedulerService.updateJob(job);
-//        return ("job updated");
-//    }
 //    @PostMapping("/schedule/job/delete/{groupname}/{jobname}")
 //    public String deleteJob(@PathVariable String groupname, @PathVariable String jobname) throws  SchedulerException {
 //        schedulerService.deleteJob(groupname,jobname);
