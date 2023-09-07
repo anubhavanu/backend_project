@@ -1,7 +1,6 @@
 package com.example.fileupload.service;
 
 import com.example.fileupload.Component.CountryJob;
-import com.example.fileupload.dto.Job;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

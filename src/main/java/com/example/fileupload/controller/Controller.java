@@ -1,7 +1,8 @@
 package com.example.fileupload.controller;
 
 import com.example.fileupload.dto.Country;
-import com.example.fileupload.dto.Job;
+
+import com.example.fileupload.dto.JobRequest;
 import com.example.fileupload.model.User;
 import com.example.fileupload.repository.FlagImgRepository;
 import com.example.fileupload.service.*;
@@ -142,30 +143,33 @@ public class Controller {
         return ("job ran successfully");
     }
     @PostMapping("/createJob")
-    public String userupload(@RequestPart("jobName") String jobName, @RequestParam("triggerName") String triggerName,
-                           @RequestParam("time") int time) throws IOException, SchedulerException {
+    public String userupload(@RequestBody JobRequest jobRequest) throws IOException, SchedulerException {
         try {
-            return jobScheduler.scheduling(jobName,triggerName,time);
+            return jobScheduler.scheduling(jobRequest);
         } catch (SchedulerException e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    @PostMapping("/schedule/job/add")
-    public String addJob(Job job) throws  SchedulerException {
-        schedulerService.addJob(job);
-        return ("job added");
+    @PostMapping("/pause")
+    public String pauseingJob(@RequestBody JobRequest jobRequest) throws  SchedulerException {
+        return jobScheduler.pause(jobRequest);
+
     }
-    @PostMapping("/schedule/job/update")
-    public String updateJob(Job job) throws  SchedulerException {
-        schedulerService.updateJob(job);
-        return ("job updated");
+    @PostMapping("/resume")
+    public String resumeJob(@RequestBody JobRequest jobRequest) throws  SchedulerException {
+        return jobScheduler.resume(jobRequest);
+
     }
-    @PostMapping("/schedule/job/delete/{groupname}/{jobname}")
-    public String deleteJob(@PathVariable String groupname, @PathVariable String jobname) throws  SchedulerException {
-        schedulerService.deleteJob(groupname,jobname);
-        return ("job deleted");
+//    @PostMapping("/schedule/job/update")
+//    public String updateJob(JobRequest job) throws  SchedulerException {
+//        schedulerService.updateJob(job);
+//        return ("job updated");
+//    }
+//    @PostMapping("/schedule/job/delete/{groupname}/{jobname}")
+//    public String deleteJob(@PathVariable String groupname, @PathVariable String jobname) throws  SchedulerException {
+//        schedulerService.deleteJob(groupname,jobname);
+//        return ("job deleted");
     }
 
-}

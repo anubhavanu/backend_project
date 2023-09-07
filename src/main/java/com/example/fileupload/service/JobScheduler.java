@@ -1,41 +1,54 @@
 package com.example.fileupload.service;
 
 import com.example.fileupload.Component.JobCreate;
-import com.example.fileupload.repository.JobScheduleRepository;
+
+
+import com.example.fileupload.dto.JobRequest;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.quartz.CronScheduleBuilder.cronSchedule;
+import static org.quartz.TriggerBuilder.newTrigger;
 
 @Service
-public class JobScheduler implements JobScheduleRepository {
-    @Autowired
-    JobScheduleRepository jobScheduleRepository;
+public class JobScheduler  {
+//    @Autowired
+//    JobScheduleRepository jobScheduleRepository;
     @Autowired
     private Scheduler scheduler;
 
 
-    @Override
-    public String findJobByName(String jobName) {
-        String jn = jobScheduleRepository.findJobByName("jobName");
-        if (jn == null)
-            return "true";
-        return "false";
+    public JobDetail findJobByName(String jobName, String jobGroup) throws SchedulerException {
+
+        try {
+            JobDetail jd  = scheduler.getJobDetail(new JobKey(jobName, jobGroup));
+            return jd;
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public String scheduling(String jobName, String triggerName, int time) throws SchedulerException {
-        if(findJobByName(jobName).equals("false"))
+    public String scheduling(JobRequest jobRequest) throws SchedulerException {
+        if(findJobByName(jobRequest.getJobName(), jobRequest.getGroupName())==null)
         {
             JobDetail jobDetail = JobBuilder.newJob(JobCreate.class)
-                    .withIdentity(jobName)
+                    .withIdentity(jobRequest.getJobName(),jobRequest.getGroupName())
                     .build();
-            SimpleTrigger st = TriggerBuilder.newTrigger()
-                    .withIdentity(triggerName)
 
-                    .withSchedule(SimpleScheduleBuilder.simpleSchedule()
-                            .withIntervalInSeconds(time)
-                            .repeatForever())
+//            CronTrigger st = newTrigger()
+//                    .withIdentity(jobRequest.getTriggerName())
+//
+//                    .withSchedule(CronScheduleBuilder.cronSchedule(jobRequest.getCronExpression())).build();
+
+            CronTrigger st =newTrigger()
+                    .withIdentity(jobRequest.getTriggerName(), jobRequest.getGroupName())
+                    .withSchedule(cronSchedule("0/5 0 * * * ?"))
+                    .forJob(jobRequest.getJobName(),jobRequest.getGroupName())
+
                     .build();
 
             scheduler.scheduleJob(jobDetail, st);
@@ -45,63 +58,34 @@ public class JobScheduler implements JobScheduleRepository {
             return ("job was already present/not created successfully");
     }
 
-    @Override
-    public <S extends JobScheduler> S save(S entity) {
-        return null;
+
+    public String pause(JobRequest jobRequest) throws SchedulerException {
+        try {
+            JobDetail jd=findJobByName(jobRequest.getJobName(), jobRequest.getGroupName());
+            if(jd!=null)
+            {
+                scheduler.pauseJob(new JobKey(jobRequest.getJobName(),jobRequest.getTriggerName()));
+                return ("job paused successfully");
+            }
+            else
+                return ("Job not found");
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @Override
-    public <S extends JobScheduler> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
-    }
-
-    @Override
-    public Optional<JobScheduler> findById(Long aLong) {
-        return Optional.empty();
-    }
-
-    @Override
-    public boolean existsById(Long aLong) {
-        return false;
-    }
-
-    @Override
-    public Iterable<JobScheduler> findAll() {
-        return null;
-    }
-
-    @Override
-    public Iterable<JobScheduler> findAllById(Iterable<Long> longs) {
-        return null;
-    }
-
-    @Override
-    public long count() {
-        return 0;
-    }
-
-    @Override
-    public void deleteById(Long aLong) {
-
-    }
-
-    @Override
-    public void delete(JobScheduler entity) {
-
-    }
-
-    @Override
-    public void deleteAllById(Iterable<? extends Long> longs) {
-
-    }
-
-    @Override
-    public void deleteAll(Iterable<? extends JobScheduler> entities) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
+    public String resume(JobRequest jobRequest)  throws SchedulerException {
+        try {
+            JobDetail jd=findJobByName(jobRequest.getJobName(), jobRequest.getGroupName());
+            if(jd!=null)
+            {
+                scheduler.resumeJob(new JobKey(jobRequest.getJobName(),jobRequest.getGroupName()));
+                return ("job resumed successfully");
+            }
+            else
+                return ("Job not found");
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
