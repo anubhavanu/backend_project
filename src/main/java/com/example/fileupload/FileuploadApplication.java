@@ -14,6 +14,7 @@ public class FileuploadApplication extends Exception{
 			ApplicationContext context  =SpringApplication.run(FileuploadApplication.class, args);
 			SchedulerService schedulerService = context.getBean(SchedulerService.class);
 			schedulerService.StartSchedulerService();
+			schedulerService.schedule();
 
 		}catch(Exception e)
 		{System.out.println(e.getMessage());
