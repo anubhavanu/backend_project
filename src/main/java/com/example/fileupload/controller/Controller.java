@@ -48,6 +48,9 @@ public class Controller {
     @Autowired
     SchedulerService schedulerService;
 
+    @Autowired
+    JobScheduler jobScheduler;
+
 
 
 
@@ -136,6 +139,16 @@ public class Controller {
             throw new RuntimeException(e);
         }
         return ("job ran successfully");
+    }
+    @PostMapping("/createJob")
+    public String userupload(@RequestPart("jobName") String jobName, @RequestParam("triggerName") String triggerName,
+                           @RequestParam("time") int time) throws IOException, SchedulerException {
+        try {
+            return jobScheduler.scheduling(jobName,triggerName,time);
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 
