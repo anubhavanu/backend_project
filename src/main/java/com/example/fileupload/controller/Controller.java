@@ -141,29 +141,17 @@ public class Controller {
 
     @PostMapping("/schedule/job/add")
     public String addJob(Job job) throws  SchedulerException {
-        try {
-            schedulerService.addJob(job);
-        } catch (SchedulerException e) {
-            throw new RuntimeException(e);
-        }
+        schedulerService.addJob(job);
         return ("job added");
     }
     @PostMapping("/schedule/job/update")
     public String updateJob(Job job) throws  SchedulerException {
-        try {
-            schedulerService.updateJob(job);
-        } catch (SchedulerException e) {
-            throw new RuntimeException(e);
-        }
+        schedulerService.updateJob(job);
         return ("job updated");
     }
     @PostMapping("/schedule/job/delete/{groupname}/{jobname}")
     public String deleteJob(@PathVariable String groupname, @PathVariable String jobname) throws  SchedulerException {
-        try {
-            schedulerService.deleteJob(groupname,jobname);
-        } catch (SchedulerException e) {
-            throw new RuntimeException(e);
-        }
+        schedulerService.deleteJob(groupname,jobname);
         return ("job deleted");
     }
 
