@@ -47,24 +47,6 @@ public class QrtzScheduler {
     }
 
 
-
-//    @Bean
-//    public SchedulerFactoryBean schedulerFactoryBean(SpringBeanJobFactory springBeanJobFactory,
-//                                                     @Qualifier("quartzdatasource") DataSource dataSource) throws IOException {
-////        Properties properties = new Properties();
-////        properties.putAll(quartzProperties.getProperties());
-//
-//        SchedulerFactoryBean factory = new SchedulerFactoryBean();
-//        factory.setJobFactory(springBeanJobFactory);
-////        factory.setConfigLocation(new ClassPathResource("quartz.properties"));
-//
-//        factory.setOverwriteExistingJobs(true);
-//        factory.setDataSource(dataSource);
-////        factory.setQuartzProperties(properties);
-//        factory.setJobFactory(springBeanJobFactory);
-//        return factory;
-//    }
-
     @Bean(name="quartzproperties")
     @ConfigurationProperties("spring.datasource.quartz")
     public DataSourceProperties dataSourceProperties() {
@@ -74,7 +56,7 @@ public class QrtzScheduler {
 
     @Bean(name="quartzdatasource")
     @QuartzDataSource
-    @ConfigurationProperties(prefix = "spring.datasource.quartz")
+//    @ConfigurationProperties(prefix = "spring.datasource.quartz")
     public DataSource datasource(@Qualifier("quartzproperties") DataSourceProperties properties){
         DataSource ds= properties.initializeDataSourceBuilder().build();
         return ds;
