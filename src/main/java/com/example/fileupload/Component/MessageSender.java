@@ -35,7 +35,7 @@ public class MessageSender {
 
         logger.info("message id: "+ sendMessageResponse.messageId());
 
-        sqsClient.close();
+//        sqsClient.close();
     }
 
 

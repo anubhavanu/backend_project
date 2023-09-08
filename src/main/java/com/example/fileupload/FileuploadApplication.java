@@ -1,5 +1,6 @@
 package com.example.fileupload;
 
+import com.example.fileupload.Component.MessageReciever;
 import com.example.fileupload.Component.MessageSender;
 import com.example.fileupload.service.SchedulerService;
 import org.springframework.boot.SpringApplication;
@@ -19,9 +20,13 @@ public class FileuploadApplication extends Exception{
 
 			MessageSender messageSender = context.getBean(MessageSender.class);
 			messageSender.sendMessage();
+			MessageReciever messageReciever=context.getBean(MessageReciever.class);
+			String s=messageReciever.recieveMessage();
+			System.out.println(s);
 			System.out.println("**********HEHHEHEHEHEHEHEHEH*********");
 		}catch(Exception e)
 		{System.out.println(e.getMessage());
+
 
 
 	}
