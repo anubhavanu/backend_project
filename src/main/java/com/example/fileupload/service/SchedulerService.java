@@ -31,6 +31,7 @@ public class SchedulerService {
                 .build();
 
         scheduler.scheduleJob(jobDetail,st);
+        System.out.println("***********SCHEDULER*************");
 
 
     }
