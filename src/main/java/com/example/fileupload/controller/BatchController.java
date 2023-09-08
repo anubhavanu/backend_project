@@ -16,7 +16,6 @@ import org.springframework.batch.core.Job;
 public class BatchController {
 
     @Autowired
-    @Qualifier("jbLauncher")
     JobLauncher jbLauncher;
 
     @Autowired

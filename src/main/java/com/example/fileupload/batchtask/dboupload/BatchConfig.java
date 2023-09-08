@@ -17,7 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class BatchConfig {
-    @Bean("DboProcessJob")
+    @Bean
     public Job dboProcessJob( JobRepository jbRepository, PlatformTransactionManager transactionManager, Step orderStep1 ) {
         return new JobBuilder("processJob", jbRepository)
 //                .incrementer(new RunIdIncrementer())  //  not needed for spring boot 3
