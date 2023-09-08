@@ -47,18 +47,18 @@ public class QrtzScheduler {
     }
 
 
-    @Bean(name="quartzproperties")
+    @Bean("quartzproperties")
     @ConfigurationProperties("spring.datasource.quartz")
-    public DataSourceProperties dataSourceProperties() {
+    public DataSourceProperties quartzproperties() {
         DataSourceProperties dsp= new DataSourceProperties();
         return dsp;
     }
 
-    @Bean(name="quartzdatasource")
+    @Bean
     @QuartzDataSource
 //    @ConfigurationProperties(prefix = "spring.datasource.quartz")
-    public DataSource datasource(@Qualifier("quartzproperties") DataSourceProperties properties){
-        DataSource ds= properties.initializeDataSourceBuilder().build();
+    public DataSource quartzdatasource( @Qualifier("quartzproperties") DataSourceProperties quartzproperties){
+        DataSource ds= quartzproperties.initializeDataSourceBuilder().build();
         return ds;
     }
 

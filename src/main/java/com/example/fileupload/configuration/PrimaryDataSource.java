@@ -41,10 +41,10 @@ public class PrimaryDataSource {
     }
 
     @Primary
-    @Bean(name="datasource")
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource datasource(DataSourceProperties properties){
-        DataSource ds= properties.initializeDataSourceBuilder().build();
+    @Bean
+//    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource datasource(DataSourceProperties dataSourceProperties){
+        DataSource ds= dataSourceProperties.initializeDataSourceBuilder().build();
         return ds;
     }
 
