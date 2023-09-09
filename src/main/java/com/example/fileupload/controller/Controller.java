@@ -1,7 +1,6 @@
 package com.example.fileupload.controller;
 
 import com.example.fileupload.dto.Country;
-
 import com.example.fileupload.dto.JobRequest;
 import com.example.fileupload.model.User;
 import com.example.fileupload.repository.FlagImgRepository;
@@ -21,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
 
 @RestController
 public class Controller {
@@ -52,6 +52,11 @@ public class Controller {
 
     @Autowired
     JobScheduler jobScheduler;
+
+    @Autowired
+    TransactionDetails transactionDetails;
+
+
 
 
 //    @Autowired
@@ -173,6 +178,29 @@ public class Controller {
     public String deleteJob(@PathVariable String groupname, @PathVariable String jobname) throws SchedulerException {
         jobScheduler.deleteJob(groupname, jobname);
         return ("job deleted");
+    }
+
+    @PostMapping("/transaction/{user_account_no}/{amount}")
+    public ResponseEntity<?> Transaction(@PathVariable String user_account_no, @PathVariable int amount) {
+        int result=transactionDetails.newTransaction(user_account_no, amount);
+        String s="{ \"Transaction id\" :"+ String.valueOf(result)+", \"Status\" : "+"Transaction req accepted"+" }";
+
+
+        return ResponseEntity.ok()
+
+                .contentType(MediaType.parseMediaType("application/json"))
+                .body(s);
+    }
+    @GetMapping("/transactionstatus/{transaction_id}")
+    public ResponseEntity<?> Transaction(@PathVariable int transaction_id) {
+        String result=transactionDetails.transactionStatus(transaction_id);
+
+
+
+        return ResponseEntity.ok()
+
+                .contentType(MediaType.parseMediaType("application/json"))
+                .body(result);
     }
 
 }

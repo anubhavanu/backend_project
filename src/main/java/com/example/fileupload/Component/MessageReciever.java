@@ -1,5 +1,6 @@
 package com.example.fileupload.Component;
 
+import com.example.fileupload.model.CustomerTxns;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -37,6 +38,30 @@ public class MessageReciever {
         }
         return messages;
 
+    }
+    public String recieveMessage(CustomerTxns customerTxns)
+    {
+        final String queueURL
+                = "https://sqs.ap-south-1.amazonaws.com/387683656737/process_txns";
+        ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
+                .queueUrl(queueURL)
+                .build();
+        List<Message> receivedMessages = sqsClient.receiveMessage(receiveMessageRequest).messages();
+
+        for (Message receivedMessage : receivedMessages) {
+            String messages = receivedMessage.body() ;
+            if (messages.contains(customerTxns.getAccountInfo().getUser_account_no())){
+            DeleteMessageRequest deleteMessageRequest = DeleteMessageRequest.builder()    //line no 31 -35 are for deleting the message after reading it from SQS queue
+                    .queueUrl(queueURL)
+                    .receiptHandle(receivedMessage.receiptHandle())
+                    .build();
+            sqsClient.deleteMessage(deleteMessageRequest);
+
+        }
+
+
+    }
+        return ("transaction removed from waiting queue");
     }
 
 }

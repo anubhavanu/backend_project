@@ -37,6 +37,28 @@ public class MessageSender {
 
 //        sqsClient.close();
     }
+    public  String sendMessage(String str ) {
+//        SqsClient sqsClient = getSQSClient();
+
+        final String queueURL
+                = "https://sqs.ap-south-1.amazonaws.com/387683656737/process_txns";
+
+        SendMessageRequest sendMessageRequest = SendMessageRequest
+                .builder()
+                .queueUrl(queueURL)
+                .messageBody(str)
+                .build();
+
+        // Send message and get the messageId in return
+        SendMessageResponse sendMessageResponse =
+                sqsClient
+                        .sendMessage(sendMessageRequest);
+
+        logger.info("message id: "+ sendMessageResponse.messageId());
+
+//        sqsClient.close();
+        return("transaction queued successfully");
+    }
 
 
 }

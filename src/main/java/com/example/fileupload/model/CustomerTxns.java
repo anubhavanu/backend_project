@@ -3,16 +3,16 @@ package com.example.fileupload.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 @Data
 @Entity
 @Table(name="customer_txns")
 public class CustomerTxns {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private String id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name="account_id", nullable=false)
@@ -22,10 +22,10 @@ public class CustomerTxns {
     private float debit_amount;
 
     @Column (name = "txn_created_time")
-    private Time txn_created_time;
+    private LocalTime txn_created_time;
 
     @Column (name = "status")
-    private Time status;
+    private String status;
 
 
     @Column(name = "reason")
