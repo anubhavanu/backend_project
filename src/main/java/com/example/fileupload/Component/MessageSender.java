@@ -17,7 +17,7 @@ public class MessageSender {
     @Autowired
     SqsClient sqsClient;
     public  void sendMessage( ) {
-//        SqsClient sqsClient = getSQSClient();
+////        SqsClient sqsClient = getSQSClient();
 
         final String queueURL
                 = "https://sqs.ap-south-1.amazonaws.com/387683656737/process_txns";
