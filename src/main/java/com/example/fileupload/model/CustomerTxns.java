@@ -9,14 +9,16 @@ import java.time.LocalTime;
 @Entity
 @Table(name="customer_txns")
 public class CustomerTxns {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
 
-    @ManyToOne
-    @JoinColumn(name="account_id", nullable=false)
-    private AccountInfo accountInfo;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+
+
+//    private ZAccountInfo ZAccountInfo;
+
+//    @Column (name="debit_amount")
+//    private float debit_amount;
 
     @Column (name="debit_amount")
     private float debit_amount;
@@ -31,6 +33,8 @@ public class CustomerTxns {
     @Column(name = "reason")
     private String reason;
 
+    @Column (name = "account_id")
+    private Long account_id;
 
 
 

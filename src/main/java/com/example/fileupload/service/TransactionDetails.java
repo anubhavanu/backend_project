@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.Optional;
 
 @Service
 public class TransactionDetails {
@@ -36,10 +37,10 @@ public class TransactionDetails {
 
 //    @Autowired
 //    SqsClient sqsClient;
-    public int  newTransaction(String userAccountNo, int amount) {
+    public Long  newTransaction(String userAccountNo, int amount) {
         CustomerTxns customerTxns =new CustomerTxns();
-        AccountInfo accountInfo=accountInfoRepository.findAccountByAccountNo(userAccountNo);
-        customerTxns.setAccountInfo(accountInfo);
+        AccountInfo ZAccountInfo =accountInfoRepository.findAccountByAccountNo(userAccountNo);
+//        customerTxns.setZAccountInfo(ZAccountInfo);
         customerTxns.setDebit_amount(amount);
         LocalTime obj=  LocalTime.now();
         customerTxns.setTxn_created_time(obj);
@@ -72,13 +73,14 @@ public class TransactionDetails {
         return customerTxns.getId();
     }
 
-    public String transactionStatus(int transactionId)
+    public String transactionStatus(Long transactionId)
     {
 
 
-       CustomerTxns customerTxns= customerTxnRepository.findCustomerById(transactionId);
+       Optional<CustomerTxns> customerTxns= customerTxnRepository.findById(transactionId);
 
-               return ("transaction status is "+customerTxns.getStatus());
+
+               return ("transaction status is "+customerTxns.get().getStatus());
 
 
 

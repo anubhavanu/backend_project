@@ -120,7 +120,7 @@ public class Controller {
     @GetMapping("/country/search")
     public void getcountrydata() throws JsonProcessingException {
 
-        Country[] countryStr = countryService.fetchCountryData();
+         Country[] countryStr = countryService.fetchCountryTableData();
     }
 
     @GetMapping("/countryFlagImgDownload")
@@ -182,7 +182,7 @@ public class Controller {
 
     @PostMapping("/transaction/{user_account_no}/{amount}")
     public ResponseEntity<?> Transaction(@PathVariable String user_account_no, @PathVariable int amount) {
-        int result=transactionDetails.newTransaction(user_account_no, amount);
+        Long result=transactionDetails.newTransaction(user_account_no, amount);
         String s="{ \"Transaction id\" :"+ String.valueOf(result)+", \"Status\" : "+"Transaction req accepted"+" }";
 
 
@@ -192,7 +192,7 @@ public class Controller {
                 .body(s);
     }
     @GetMapping("/transactionstatus/{transaction_id}")
-    public ResponseEntity<?> Transaction(@PathVariable int transaction_id) {
+    public ResponseEntity<?> Transaction(@PathVariable Long transaction_id) {
         String result=transactionDetails.transactionStatus(transaction_id);
 
 

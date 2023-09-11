@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class TransactionTrigger {
     private String account_no;
     private int amount;
-    private int txn_id;
+    private Long txn_id;
 }
