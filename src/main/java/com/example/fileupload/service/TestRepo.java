@@ -1,11 +1,11 @@
 package com.example.fileupload.service;
 
 import com.example.fileupload.Component.MessageReciever;
-import com.example.fileupload.model.CountryImp;
 import com.example.fileupload.model.CustomerTxns;
-import com.example.fileupload.repository.CountryRepository;
+import com.example.fileupload.repository.CountryTableRepository;
 import com.example.fileupload.repository.CustomerTxnRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +13,8 @@ import java.time.LocalTime;
 import java.util.logging.Logger;
 
 @Service
+
+
 public class TestRepo {
 
 
@@ -20,38 +22,47 @@ public class TestRepo {
     CustomerTxnRepository cr;
 
     @Autowired
-    CountryRepository cip;
+    CountryTableRepository cip;
+
+    @Autowired
+    CountryService countryServices;
 
     @Autowired
     MessageReciever mr;
 
+//   @Autowired
+//    PrimaryJpaConfiguration primaryJpaConfigurations;
+
     private static Logger logger = Logger
             .getLogger(TestRepo.class.getName());
-    public void savedata() throws JsonProcessingException {
 
+    @Transactional
+    public void devide()
+    {
+        int c=5/1;
+    }
+
+    @Transactional
+
+    public void savedata() throws JsonProcessingException {
         CustomerTxns customerTxnsDup= new CustomerTxns();
-        customerTxnsDup.setId(100L);
+        customerTxnsDup.setId(101L);
         customerTxnsDup.setTxn_created_time(LocalTime.now());
-        customerTxnsDup.setReason("ecommerce");
-        customerTxnsDup.setDebit_amount(2355);
+        customerTxnsDup.setReason("ecommerce-advertising");
+        customerTxnsDup.setDebit_amount(23545);
         cr.save(customerTxnsDup);
 
 
-        CountryImp ci=new CountryImp();
-
-        ci.setCountry_name("america");
-        ci.setCapital("newyork");
-        cip.save(ci);
-        logger.info("heeeyyy savedd******");
-
+        countryServices.fetchCountryTableData();
+        devide();
     }
-    public void startTxnQueuelistner() throws JsonProcessingException, InterruptedException {
-
-        while(true){
-            Thread.sleep(10000);
-            logger.info("**********running startTxnQueuelistner ");
-            mr.recieveMessage();
-        }
-
-    }
+//    public void startTxnQueuelistner() throws JsonProcessingException, InterruptedException {
+//
+//        while(true){
+//            Thread.sleep(10000);
+//            logger.info("**********running startTxnQueuelistner ");
+//            mr.recieveMessage();
+//        }
+//
+//    }
 }

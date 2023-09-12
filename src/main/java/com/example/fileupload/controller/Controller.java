@@ -56,6 +56,9 @@ public class Controller {
     @Autowired
     TransactionDetails transactionDetails;
 
+    @Autowired
+    TestRepo testRepos;
+
 
 
 
@@ -194,14 +197,20 @@ public class Controller {
     @GetMapping("/transactionstatus/{transaction_id}")
     public ResponseEntity<?> Transaction(@PathVariable Long transaction_id) {
         String result=transactionDetails.transactionStatus(transaction_id);
-
-
-
         return ResponseEntity.ok()
 
                 .contentType(MediaType.parseMediaType("application/json"))
                 .body(result);
     }
+    @GetMapping("/transaction_management")
+    public ResponseEntity<?> txn_mgmt() throws JsonProcessingException {
+        testRepos.savedata();
+        return ResponseEntity.ok()
+
+                .contentType(MediaType.parseMediaType("application/String"))
+                .body("Tractional behaviour under iplimentation");
+    }
+
 
 }
 
