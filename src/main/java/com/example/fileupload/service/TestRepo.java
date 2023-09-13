@@ -5,9 +5,10 @@ import com.example.fileupload.model.CustomerTxns;
 import com.example.fileupload.repository.CountryTableRepository;
 import com.example.fileupload.repository.CustomerTxnRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
 import java.util.logging.Logger;
@@ -36,20 +37,20 @@ public class TestRepo {
     private static Logger logger = Logger
             .getLogger(TestRepo.class.getName());
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void devide()
     {
-        int c=5/1;
+        int c=5/0;
     }
 
-    @Transactional
 
-    public void savedata() throws JsonProcessingException {
+@Transactional(isolation = Isolation.REPEATABLE_READ)
+public void savedata() throws JsonProcessingException {
         CustomerTxns customerTxnsDup= new CustomerTxns();
-        customerTxnsDup.setId(101L);
+        customerTxnsDup.setId(14L);
         customerTxnsDup.setTxn_created_time(LocalTime.now());
-        customerTxnsDup.setReason("ecommerce-advertising");
-        customerTxnsDup.setDebit_amount(23545);
+        customerTxnsDup.setReason("online-advertise");
+        customerTxnsDup.setDebit_amount(100);
         cr.save(customerTxnsDup);
 
 
