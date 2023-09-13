@@ -61,7 +61,7 @@ public class PrimaryJpaConfiguration {
         return lcemfb;
     }
 
-    @Bean
+    @Bean("primaryTransactionManager")
     @Primary
     public PlatformTransactionManager primaryTransactionManager(
             @Qualifier("primaryEntityManagerFactory") EntityManagerFactory primaryEntityManagerFactory) {
