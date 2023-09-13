@@ -26,7 +26,7 @@ import java.util.Map;
 @PropertySource({ "classpath:application.properties" })
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = {"com.example.fileupload.repository"},
+        basePackages = {"com.example.fileupload.repository.primary"},
         entityManagerFactoryRef = "primaryEntityManagerFactory",
         transactionManagerRef = "primaryTransactionManager"
 )
@@ -55,7 +55,7 @@ public class PrimaryJpaConfiguration {
         LocalContainerEntityManagerFactoryBean lcemfb=
                                 builder
                                 .dataSource(dataSource)
-                                .packages("com.example.fileupload.model")
+                                .packages("com.example.fileupload.model.primary")
                                 .build();
 
         return lcemfb;

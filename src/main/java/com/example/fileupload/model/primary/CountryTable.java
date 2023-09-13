@@ -1,4 +1,4 @@
-package com.example.fileupload.model;
+package com.example.fileupload.model.primary;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,8 +8,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="country_imp")
-public class CountryImp {
+@Table(name="country_table")
+public class CountryTable {
     @Id
     @Column(name="country_name")
     private String country_name;
@@ -25,3 +25,4 @@ public class CountryImp {
 
 
 }
+

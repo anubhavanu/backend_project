@@ -1,6 +1,6 @@
 //package com.example.fileupload.repository;
 //
-//import com.example.fileupload.model.User;
+//import com.example.fileupload.model.primary.User;
 //import jakarta.persistence.EntityManagerFactory;
 //import org.springframework.data.jpa.repository.Query;
 //import org.springframework.data.repository.CrudRepository;

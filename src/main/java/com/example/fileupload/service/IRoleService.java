@@ -1,6 +1,6 @@
 package com.example.fileupload.service;
 
-import com.example.fileupload.model.Roles;
+import com.example.fileupload.model.primary.Roles;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.example.fileupload.repository;
+package com.example.fileupload.repository.primary;
 
-import com.example.fileupload.model.UserMapping;
+import com.example.fileupload.model.primary.UserMapping;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;

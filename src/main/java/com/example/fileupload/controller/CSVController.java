@@ -3,7 +3,7 @@ package com.example.fileupload.controller;
 
 import com.example.fileupload.helper.CSVHelper;
 import com.example.fileupload.message.ResponseMessage;
-import com.example.fileupload.model.Tutorial;
+import com.example.fileupload.model.primary.Tutorial;
 import com.example.fileupload.service.CSVService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;

@@ -1,7 +1,7 @@
 package com.example.fileupload.helper;
 
 
-import com.example.fileupload.model.User;
+import com.example.fileupload.model.primary.User;
 import org.apache.commons.csv.*;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,7 +1,6 @@
-package com.example.fileupload.repository;
+package com.example.fileupload.repository.primary;
 
-import com.example.fileupload.model.CountryImp;
-import jakarta.transaction.Transactional;
+import com.example.fileupload.model.primary.CountryImp;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

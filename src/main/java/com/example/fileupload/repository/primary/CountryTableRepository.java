@@ -1,6 +1,6 @@
-package com.example.fileupload.repository;
+package com.example.fileupload.repository.primary;
 
-import com.example.fileupload.model.CountryTable;
+import com.example.fileupload.model.primary.CountryTable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,12 +1,11 @@
 package com.example.fileupload.service;
 
-import com.example.fileupload.model.CountryImp;
-import com.example.fileupload.repository.CountryRepository;
+import com.example.fileupload.model.primary.CountryImp;
+import com.example.fileupload.repository.primary.CountryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service

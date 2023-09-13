@@ -2,8 +2,8 @@ package com.example.fileupload.service;
 
 
 import com.example.fileupload.helper.SHADecryption;
-import com.example.fileupload.model.User;
-import com.example.fileupload.repository.Userrepository;
+import com.example.fileupload.model.primary.User;
+import com.example.fileupload.repository.primary.Userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.security.NoSuchAlgorithmException;

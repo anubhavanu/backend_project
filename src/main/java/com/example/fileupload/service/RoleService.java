@@ -1,7 +1,7 @@
 package com.example.fileupload.service;
 
-import com.example.fileupload.model.Roles;
-import com.example.fileupload.repository.Rolerepository;
+import com.example.fileupload.model.primary.Roles;
+import com.example.fileupload.repository.primary.Rolerepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

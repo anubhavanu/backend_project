@@ -1,10 +1,10 @@
 package com.example.fileupload.service;
 
 import com.example.fileupload.dto.Country;
-import com.example.fileupload.model.CountryImp;
-import com.example.fileupload.model.CountryTable;
-import com.example.fileupload.repository.CountryRepository;
-import com.example.fileupload.repository.CountryTableRepository;
+import com.example.fileupload.model.primary.CountryImp;
+import com.example.fileupload.model.primary.CountryTable;
+import com.example.fileupload.repository.primary.CountryRepository;
+import com.example.fileupload.repository.primary.CountryTableRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
