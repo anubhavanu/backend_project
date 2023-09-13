@@ -7,9 +7,10 @@ import com.example.fileupload.repository.CountryRepository;
 import com.example.fileupload.repository.CountryTableRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -92,11 +93,11 @@ public class CountryService  implements ICountryService{
 
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public Country[] fetchCountryTableData() throws JsonProcessingException {
 //        RestTemplate restTemplate = new RestTemplate();
 //        String fooResourceUrl = "https://restcountries.com/v3.1/name/india?fullText=true";
-        String fooResourceUrl = "https://restcountries.com/v3.1/name/f";
+        String fooResourceUrl = "https://restcountries.com/v3.1/name/v";
 
         String response  = String.valueOf(restTemplate.getForEntity(fooResourceUrl , String.class).getBody());
 
@@ -137,7 +138,7 @@ public class CountryService  implements ICountryService{
         }
         System.out.println("Runnibg the code");
         //        countryTableRepository.saveAll(countryImpList);
-        countryTableRepository.save(countryImpList.get(0));
+        countryTableRepository.saveAll(countryImpList);
 
 
         return countries;

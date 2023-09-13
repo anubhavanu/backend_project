@@ -16,8 +16,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @PropertySource({ "classpath:application.properties" })
@@ -46,23 +44,25 @@ public class PrimaryJpaConfiguration {
     }
 
     @Bean("primaryEntityManagerFactory")
+    @Primary
     public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
             @Qualifier("primarydb") DataSource dataSource,
             EntityManagerFactoryBuilder builder) {
-        Map<String,Object> properties=new HashMap<String,Object>();
-        properties.put("hibernate.hbm2ddl.auto","create");
+//        Map<String,Object> properties=new HashMap<String,Object>();
+//        properties.put("hibernate.hbm2ddl.auto","create");
 
         LocalContainerEntityManagerFactoryBean lcemfb=
                                 builder
                                 .dataSource(dataSource)
                                 .packages("com.example.fileupload.model")
-                                .properties(properties)
+//                                .properties(properties)
                                 .build();
 
         return lcemfb;
     }
 
     @Bean
+    @Primary
     public PlatformTransactionManager primaryTransactionManager(
             @Qualifier("primaryEntityManagerFactory") EntityManagerFactory primaryEntityManagerFactory) {
         return new JpaTransactionManager(primaryEntityManagerFactory);
