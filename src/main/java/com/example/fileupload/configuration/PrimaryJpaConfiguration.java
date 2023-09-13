@@ -10,12 +10,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,33 +42,33 @@ public class PrimaryJpaConfiguration {
 
     @Primary
     @Bean("primarydb")
-//    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource datasource(DataSourceProperties dataSourceProperties){
         DataSource ds= dataSourceProperties.initializeDataSourceBuilder().build();
         return ds;
     }
 
     @Bean("primaryEntityManagerFactory")
+    @Primary
     public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
             @Qualifier("primarydb") DataSource dataSource,
             EntityManagerFactoryBuilder builder) {
-        Map<String,Object> properties=new HashMap<String,Object>();
-        properties.put("hibernate.hbm2ddl.auto","create");
-
         LocalContainerEntityManagerFactoryBean lcemfb=
                                 builder
                                 .dataSource(dataSource)
                                 .packages("com.example.fileupload.model")
-                                .properties(properties)
                                 .build();
 
         return lcemfb;
     }
 
     @Bean
+    @Primary
     public PlatformTransactionManager primaryTransactionManager(
             @Qualifier("primaryEntityManagerFactory") EntityManagerFactory primaryEntityManagerFactory) {
         return new JpaTransactionManager(primaryEntityManagerFactory);
+
+
+
     }
 
 

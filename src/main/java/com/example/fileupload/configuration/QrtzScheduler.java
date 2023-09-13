@@ -56,7 +56,6 @@ public class QrtzScheduler {
 
     @Bean
     @QuartzDataSource
-//    @ConfigurationProperties(prefix = "spring.datasource.quartz")
     public DataSource quartzdatasource( @Qualifier("quartzproperties") DataSourceProperties quartzproperties){
         DataSource ds= quartzproperties.initializeDataSourceBuilder().build();
         return ds;
