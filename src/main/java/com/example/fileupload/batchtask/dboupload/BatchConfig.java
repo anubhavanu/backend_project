@@ -18,7 +18,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 public class BatchConfig {
     @Bean
-    public Job dboProcessJob( JobRepository jbRepository, PlatformTransactionManager transactionManager, Step orderStep1 ) {
+    public Job dboProcessJob( JobRepository jbRepository, @Qualifier("secondaryTransactionManager") PlatformTransactionManager transactionManager, Step orderStep1 ) {
         return new JobBuilder("processJob", jbRepository)
 //                .incrementer(new RunIdIncrementer())  //  not needed for spring boot 3
                 .listener(listener())
@@ -27,7 +27,7 @@ public class BatchConfig {
                 .build();
     }
     @Bean
-    public Step orderStep1(JobRepository jbRepository,PlatformTransactionManager transactionManager) {
+    public Step orderStep1(JobRepository jbRepository,@Qualifier("secondaryTransactionManager") PlatformTransactionManager transactionManager) {
         return new StepBuilder("orderStep1", jbRepository)
                 .<String, String> chunk(1,transactionManager)
                 .reader(new Reader())

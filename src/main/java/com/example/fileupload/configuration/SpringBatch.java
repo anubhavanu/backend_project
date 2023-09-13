@@ -19,9 +19,9 @@ import javax.sql.DataSource;
 public class SpringBatch {
 
     @Bean("jbRepository")
-    @DependsOn("quartzdatasource")
-    public JobRepository jbRepository( @Qualifier("quartzdatasource") DataSource quartzdatasource,
-                                       PlatformTransactionManager transactionManager
+//    @DependsOn("quartzdatasource")
+    public JobRepository jbRepository( @Qualifier("secondarydb") DataSource quartzdatasource,
+                                       @Qualifier("secondaryTransactionManager") PlatformTransactionManager transactionManager
                                        ) throws Exception {
         JobRepositoryFactoryBean jobRepositoryFactoryBean = new JobRepositoryFactoryBean();
         jobRepositoryFactoryBean.setDatabaseType(DatabaseType.POSTGRES.name());
