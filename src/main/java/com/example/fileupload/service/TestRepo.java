@@ -40,7 +40,13 @@ public class TestRepo {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void devide()
     {
-        int c=5/0;
+        try {
+            int c=5/1;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 
 
