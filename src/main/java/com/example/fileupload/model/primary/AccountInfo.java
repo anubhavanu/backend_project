@@ -1,4 +1,4 @@
-package com.example.fileupload.model;
+package com.example.fileupload.model.primary;
 
 import jakarta.persistence.*;
 

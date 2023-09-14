@@ -1,7 +1,7 @@
 package com.example.fileupload.service;
 
 import com.example.fileupload.controller.UserAlreadyFoundException;
-import com.example.fileupload.model.User;
+import com.example.fileupload.model.primary.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;

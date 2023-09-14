@@ -1,11 +1,14 @@
 package com.example.fileupload;
 
 import com.example.fileupload.service.SchedulerService;
+import com.example.fileupload.service.TestAsync;
 import com.example.fileupload.service.TestRepo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.concurrent.*;
 
 
 @SpringBootApplication
@@ -28,6 +31,15 @@ public class FileuploadApplication extends Exception{
 //				}
 //			});
 
+			TestAsync ta = context.getBean(TestAsync.class);
+			ta.saveMultipleData1();
+//			ExecutorService executor = Executors.newFixedThreadPool(10);
+//			Callable<String> callableTask = () -> {
+//				TimeUnit.MILLISECONDS.sleep(300);
+//				ta.sample1();
+//				return "Task's execution";
+//			};
+//			Future<String> future = executor.submit(callableTask);
 
 
 			SchedulerService schedulerService = context.getBean(SchedulerService.class);

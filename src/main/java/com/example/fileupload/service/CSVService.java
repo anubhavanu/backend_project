@@ -1,8 +1,8 @@
 package com.example.fileupload.service;
 
 import com.example.fileupload.helper.CSVHelper;
-import com.example.fileupload.model.Tutorial;
-import com.example.fileupload.repository.TutorialRepository;
+import com.example.fileupload.model.primary.Tutorial;
+import com.example.fileupload.repository.primary.TutorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

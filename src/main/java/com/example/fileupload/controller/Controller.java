@@ -2,8 +2,8 @@ package com.example.fileupload.controller;
 
 import com.example.fileupload.dto.Country;
 import com.example.fileupload.dto.JobRequest;
-import com.example.fileupload.model.User;
-import com.example.fileupload.repository.FlagImgRepository;
+import com.example.fileupload.model.primary.User;
+import com.example.fileupload.repository.primary.FlagImgRepository;
 import com.example.fileupload.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.quartz.SchedulerException;

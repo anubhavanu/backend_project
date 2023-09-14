@@ -1,10 +1,10 @@
 package com.example.fileupload.interceptor;
 
 import com.example.fileupload.helper.SHADecryption;
-import com.example.fileupload.model.User;
-import com.example.fileupload.model.UserMapping;
-import com.example.fileupload.repository.UserMappingRepository;
-import com.example.fileupload.repository.Userrepository;
+import com.example.fileupload.model.primary.User;
+import com.example.fileupload.model.primary.UserMapping;
+import com.example.fileupload.repository.primary.UserMappingRepository;
+import com.example.fileupload.repository.primary.Userrepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

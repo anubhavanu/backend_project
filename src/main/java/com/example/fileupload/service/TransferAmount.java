@@ -1,9 +1,9 @@
 package com.example.fileupload.service;
 
 
-import com.example.fileupload.model.CustomerTxns;
-import com.example.fileupload.repository.AccountInfoRepository;
-import com.example.fileupload.repository.CustomerTxnRepository;
+import com.example.fileupload.model.primary.CustomerTxns;
+import com.example.fileupload.repository.primary.AccountInfoRepository;
+import com.example.fileupload.repository.primary.CustomerTxnRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

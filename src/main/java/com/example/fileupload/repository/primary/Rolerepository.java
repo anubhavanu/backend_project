@@ -1,10 +1,10 @@
-package com.example.fileupload.repository;
+package com.example.fileupload.repository.primary;
 
-import com.example.fileupload.model.User;
+import com.example.fileupload.model.primary.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.example.fileupload.model.Roles;
+import com.example.fileupload.model.primary.Roles;
 
 
 @Repository

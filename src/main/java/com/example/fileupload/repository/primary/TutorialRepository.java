@@ -1,7 +1,7 @@
-package com.example.fileupload.repository;
+package com.example.fileupload.repository.primary;
 //import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.fileupload.model.Tutorial;
+import com.example.fileupload.model.primary.Tutorial;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 @Repository

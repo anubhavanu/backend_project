@@ -1,6 +1,6 @@
 package com.example.fileupload.service;
 
-import com.example.fileupload.model.UserMapping;
+import com.example.fileupload.model.primary.UserMapping;
 
 import java.util.List;
 

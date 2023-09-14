@@ -1,7 +1,7 @@
 package com.example.fileupload.service;
 
-import com.example.fileupload.model.UserMapping;
-import com.example.fileupload.repository.UserMappingRepository;
+import com.example.fileupload.model.primary.UserMapping;
+import com.example.fileupload.repository.primary.UserMappingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
