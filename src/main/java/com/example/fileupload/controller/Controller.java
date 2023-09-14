@@ -59,6 +59,12 @@ public class Controller {
     @Autowired
     TestRepo testRepos;
 
+    @Autowired
+    ExamService examServices;
+
+    @Autowired
+    OfficeService officeServices;
+
 
 
 
@@ -208,7 +214,23 @@ public class Controller {
         return ResponseEntity.ok()
 
                 .contentType(MediaType.parseMediaType("application/String"))
-                .body("Tractional behaviour under iplimentation");
+                .body("Tractional behaviour under imlimentation");
+    }
+    @GetMapping("/add_exam/{exam_name}/{exam_type}")
+    public ResponseEntity<?> adding_exams(@PathVariable String exam_name, @PathVariable String exam_type)  {
+        examServices.addExam(exam_name,exam_type);
+        return ResponseEntity.ok()
+
+                .contentType(MediaType.parseMediaType("application/String"))
+                .body("Exam_added successfully");
+    }
+    @GetMapping("/add_office/{office_name}/{office_city}/{area}")
+    public ResponseEntity<?> adding_office(@PathVariable String office_name, @PathVariable String office_city,int area)  {
+        officeServices.add_office(office_name,office_city, area);
+        return ResponseEntity.ok()
+
+                .contentType(MediaType.parseMediaType("application/String"))
+                .body("OFFICE_added successfully");
     }
 
 
