@@ -225,7 +225,7 @@ public class Controller {
                 .body("Exam_added successfully");
     }
     @GetMapping("/add_office/{office_name}/{office_city}/{area}")
-    public ResponseEntity<?> adding_office(@PathVariable String office_name, @PathVariable String office_city,int area)  {
+    public ResponseEntity<?> adding_office(@PathVariable String office_name, @PathVariable String office_city,@PathVariable int area)  {
         officeServices.add_office(office_name,office_city, area);
         return ResponseEntity.ok()
 

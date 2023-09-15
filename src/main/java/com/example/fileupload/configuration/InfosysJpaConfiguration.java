@@ -15,7 +15,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -39,17 +38,17 @@ public class InfosysJpaConfiguration {
 
     @PostConstruct
     public void init() {
-        logger.info("Hello world from Quartz...");
+        logger.info("Hello world from infosys...");
     }
 
-    @Bean
-    public SpringBeanJobFactory springBeanJobFactory() {
-        AutoWiringSpringBeanJobFactory jobFactory = new AutoWiringSpringBeanJobFactory();
-        logger.debug("Configuring Job factory");
-
-        jobFactory.setApplicationContext(applicationContext);
-        return jobFactory;
-    }
+//    @Bean
+//    public SpringBeanJobFactory springBeanJobFactory() {
+//        AutoWiringSpringBeanJobFactory jobFactory = new AutoWiringSpringBeanJobFactory();
+//        logger.debug("Configuring Job factory");
+//
+//        jobFactory.setApplicationContext(applicationContext);
+//        return jobFactory;
+//    }
 
 
     @Bean("infosysproperties")
@@ -61,7 +60,7 @@ public class InfosysJpaConfiguration {
 
     @Bean("infosysdb")
 
-    public DataSource quartzdatasource( @Qualifier("infosysproperties") DataSourceProperties infosysproperties){
+    public DataSource infosysdatasource( @Qualifier("infosysproperties") DataSourceProperties infosysproperties){
         DataSource ds= infosysproperties.initializeDataSourceBuilder().build();
         return ds;
     }
@@ -81,13 +80,19 @@ public class InfosysJpaConfiguration {
 
     @Bean("infosysTransactionManager")
 
-    public PlatformTransactionManager secondaryTransactionManager(
+    public PlatformTransactionManager infosysTransactionManager(
             @Qualifier("infosysEntityManagerFactory") EntityManagerFactory infosysEntityManagerFactory) {
         return new JpaTransactionManager(infosysEntityManagerFactory);
 
 
 
     }
+//@Bean(name="infosysTransactionManager")
+//@Autowired
+//DataSourceTransactionManager tm1(@Qualifier ("infosysdb") DataSource datasource) {
+//    DataSourceTransactionManager txm  = new DataSourceTransactionManager(datasource);
+//    return txm;
+//}
 
 
 
