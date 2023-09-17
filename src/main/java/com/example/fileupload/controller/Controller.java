@@ -2,6 +2,7 @@ package com.example.fileupload.controller;
 
 import com.example.fileupload.dto.Country;
 import com.example.fileupload.dto.JobRequest;
+import com.example.fileupload.model.infosys.Office;
 import com.example.fileupload.model.primary.User;
 import com.example.fileupload.repository.primary.FlagImgRepository;
 import com.example.fileupload.service.*;
@@ -252,6 +253,29 @@ public class Controller {
 
                 .contentType(MediaType.parseMediaType("application/String"))
                 .body("OFFICE_added successfully");
+    }
+
+
+    @GetMapping("/find_office/{id}")
+    public Office find_office_by_id(@PathVariable int id)  {
+        return officeServices.find_office(id);
+
+    }
+    @PostMapping("/update_office/{office_id}/{office_name}/{office_city}/{area}")
+    public ResponseEntity<?> updating_office(@PathVariable int office_id,@PathVariable String office_name, @PathVariable String office_city,@PathVariable int area)  {
+        officeServices.update_office(office_id,office_name,office_city,area);
+        return ResponseEntity.ok()
+
+                .contentType(MediaType.parseMediaType("application/String"))
+                .body("office updated successfully");
+    }
+    @DeleteMapping("/delete_office/{office_id}")
+    public ResponseEntity<?> delete_office(@PathVariable int office_id)  {
+        officeServices.delete_office(office_id);
+        return ResponseEntity.ok()
+
+                .contentType(MediaType.parseMediaType("application/String"))
+                .body("office deleted successfully");
     }
 
 

@@ -56,7 +56,7 @@ public class EmployeeService {
         er.create(emp);
         Employee emp2=er.get(123);
         System.out.println();
-//        er.delete(1123);
+       er.delete(1123);
 
     }
 
