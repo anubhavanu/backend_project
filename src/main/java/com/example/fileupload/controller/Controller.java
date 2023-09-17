@@ -65,6 +65,9 @@ public class Controller {
     @Autowired
     OfficeService officeServices;
 
+    @Autowired
+    EmployeeService employeeServices;
+
 
 
 
@@ -227,6 +230,24 @@ public class Controller {
     @GetMapping("/add_office/{office_name}/{office_city}/{area}")
     public ResponseEntity<?> adding_office(@PathVariable String office_name, @PathVariable String office_city,@PathVariable int area)  {
         officeServices.add_office(office_name,office_city, area);
+        return ResponseEntity.ok()
+
+                .contentType(MediaType.parseMediaType("application/String"))
+                .body("OFFICE_added successfully");
+    }
+
+    @PostMapping("/add_employee/{employee_name}/{employee_status}/{salary}")
+    public ResponseEntity<?> adding_employee(@PathVariable String employee_name, @PathVariable String employee_status,@PathVariable int salary)  {
+        employeeServices.add_employee(employee_name,employee_status, salary);
+        return ResponseEntity.ok()
+
+                .contentType(MediaType.parseMediaType("application/String"))
+                .body("employee added successfully");
+    }
+
+    @GetMapping("/find_employee/{id}")
+    public ResponseEntity<?> find_employee(@PathVariable int id)  {
+        employeeServices.findById(id);
         return ResponseEntity.ok()
 
                 .contentType(MediaType.parseMediaType("application/String"))

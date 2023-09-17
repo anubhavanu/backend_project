@@ -1,24 +1,24 @@
 package com.example.fileupload;
 
+import com.example.fileupload.service.EmployeeService;
 import com.example.fileupload.service.SchedulerService;
 import com.example.fileupload.service.TestAsync;
 import com.example.fileupload.service.TestRepo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import java.util.concurrent.*;
 
 
 @SpringBootApplication
-@EnableTransactionManagement
+//@EnableTransactionManagement
 public class FileuploadApplication extends Exception{
 
 	public static void main(String[] args) {
 		try {
 			ApplicationContext context  =SpringApplication.run(FileuploadApplication.class, args);
 			TestRepo tr=context.getBean(TestRepo.class);
+			EmployeeService es=context.getBean(EmployeeService.class);
+			es.cacheEmployee();
 
 //			ExecutorService executor = Executors.newFixedThreadPool(5);
 //			executor.submit(() -> {
