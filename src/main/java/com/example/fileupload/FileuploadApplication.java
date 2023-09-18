@@ -1,8 +1,10 @@
 package com.example.fileupload;
 
+import com.example.fileupload.Component.TestClass;
 import com.example.fileupload.service.SchedulerService;
 import com.example.fileupload.service.TestAsync;
 import com.example.fileupload.service.TestRepo;
+import org.aspectj.weaver.ast.Test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -19,6 +21,8 @@ public class FileuploadApplication extends Exception{
 		try {
 			ApplicationContext context  =SpringApplication.run(FileuploadApplication.class, args);
 			TestRepo tr=context.getBean(TestRepo.class);
+			TestClass trc=context.getBean(TestClass.class);
+			trc.Convert();
 
 //			ExecutorService executor = Executors.newFixedThreadPool(5);
 //			executor.submit(() -> {
