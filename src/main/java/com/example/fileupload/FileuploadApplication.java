@@ -22,7 +22,8 @@ public class FileuploadApplication extends Exception{
 			ApplicationContext context  =SpringApplication.run(FileuploadApplication.class, args);
 			TestRepo tr=context.getBean(TestRepo.class);
 			TestClass trc=context.getBean(TestClass.class);
-			trc.Convert();
+//			trc.Convert();
+			trc.nachUploadLauncher();
 
 //			ExecutorService executor = Executors.newFixedThreadPool(5);
 //			executor.submit(() -> {
