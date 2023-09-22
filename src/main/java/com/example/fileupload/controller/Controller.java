@@ -69,16 +69,9 @@ public class Controller {
     @Autowired
     EmployeeService employeeServices;
 
-
-//    private Bucket buckets;
-
-//    public Controller(Bucket buckets) {
-//        this.buckets = buckets;
-//    }
-
-
 //    @Autowired
-//    Validation validation;
+//    Bucket4JController buckets;
+
 
     @PostMapping("/fileupload")
     public void UploadFile(@RequestParam("file") MultipartFile file) throws IOException {
@@ -114,6 +107,11 @@ public class Controller {
     @GetMapping("/download/{filename:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String filename) throws FileNotFoundException {
 
+//        if (!buckets.subscriber_Initialize("vip").tryConsume(1))
+//        {
+//            System.out.println("================= TOO MANY HITS ===============");
+//            return new ResponseEntity<Resource>("TOO MANY HITS!!!!!! PLEASE TRY AFTER SOMETIME!!!!", HttpStatus.TOO_MANY_REQUESTS);
+//        }
         Resource resource = fileSytemStorage.loadFile(filename);
 
         return ResponseEntity.ok()
@@ -125,6 +123,7 @@ public class Controller {
     @GetMapping("/userscsv/{fileName:.+}")
 
     public ResponseEntity<Resource> downloadUser(@PathVariable String fileName) {
+
         InputStreamResource file = new InputStreamResource(csvUserService.load());
 
         return ResponseEntity.ok()

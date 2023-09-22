@@ -31,12 +31,7 @@ public class SubscriberInterceptor implements HandlerInterceptor {
 
 
             if (s.getSubscriber_name().equals(username)) {
-                if(s.getSubscribed_plan().equals("simple"))
-                    bucket4JControllers.simpleSubscriber();
-                else if (s.getSubscribed_plan().equals("premium"))
-                    bucket4JControllers.premiumSubscriber();
-                else if (s.getSubscribed_plan().equals("vip"))
-                    bucket4JControllers.vipSubscriber();
+                bucket4JControllers.subscriber_Initialize(s.getSubscribed_plan());
                 return true;
             }
         }

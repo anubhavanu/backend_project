@@ -18,6 +18,9 @@ import java.time.Duration;
 public class Bucket4JController {
     @Autowired
     OfficeService officeServices;
+
+//    @Autowired
+//    Subscriber subscribers;
     private Bucket buckets;
     @GetMapping("/bucket_creation")
     public Bucket generateToken()
@@ -28,6 +31,22 @@ public class Bucket4JController {
         buckets= Bucket4j.builder()
                 .addLimit(limit).build();
         return buckets;
+
+    }
+    public Bucket subscriber_Initialize(String subscription)
+    {
+
+        if (subscription.equals("simple"))
+        {
+           return simpleSubscriber();
+        }
+        else if (subscription.equals("premium"))
+        {
+            return premiumSubscriber();
+        }
+        else
+
+            return vipSubscriber();
 
     }
 
@@ -41,6 +60,7 @@ public class Bucket4JController {
         return buckets;
 
     }
+
     public Bucket vipSubscriber()
     {
         Refill refill=Refill.of(5, Duration.ofMinutes(1));
