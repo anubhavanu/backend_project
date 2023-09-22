@@ -30,7 +30,7 @@ public class SubscriberInterceptor implements HandlerInterceptor {
 
 
 
-            if (s.getSubscriber_name().equals(username)) {
+            if (s!=null) {
                 bucket4JControllers.subscriber_Initialize(s.getSubscribed_plan());
                 return true;
             }
