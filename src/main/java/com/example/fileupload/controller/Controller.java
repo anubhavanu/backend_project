@@ -7,16 +7,11 @@ import com.example.fileupload.model.primary.User;
 import com.example.fileupload.repository.primary.FlagImgRepository;
 import com.example.fileupload.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.github.bucket4j.Bandwidth;
-import io.github.bucket4j.Bucket;
-import io.github.bucket4j.Bucket4j;
-import io.github.bucket4j.Refill;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.time.Duration;
 import java.util.ArrayList;
 
 
@@ -76,11 +70,11 @@ public class Controller {
     EmployeeService employeeServices;
 
 
-    private Bucket buckets;
+//    private Bucket buckets;
 
-    public Controller(Bucket buckets) {
-        this.buckets = buckets;
-    }
+//    public Controller(Bucket buckets) {
+//        this.buckets = buckets;
+//    }
 
 
 //    @Autowired
@@ -250,6 +244,7 @@ public class Controller {
 
     @PostMapping("/add_employee/{employee_name}/{employee_status}/{salary}")
     public ResponseEntity<?> adding_employee(@PathVariable String employee_name, @PathVariable String employee_status,@PathVariable int salary)  {
+
         employeeServices.add_employee(employee_name,employee_status, salary);
         return ResponseEntity.ok()
 
@@ -290,26 +285,7 @@ public class Controller {
     }
 
 
-    public ResponseEntity<String> generateToken()
-    {
-        Refill refill=Refill.of(5, Duration.ofMinutes(1));
-        Bandwidth limit = Bandwidth.classic(10, refill);
 
-        buckets= Bucket4j.builder()
-                .addLimit(limit).build();
-        return new ResponseEntity<>("Generated Successfully", HttpStatus.OK);
-
-    }
-    @GetMapping("/rate_limiter_consumption/{office_Id}")
-    public ResponseEntity<String> consumption(@PathVariable int office_Id)
-    {
-        if (buckets.tryConsume(1)){
-            System.out.println("================API TOKEN CONSUMED SUCCESSFULLY================");
-            return new ResponseEntity<>("Office is found" +officeServices.find_office(office_Id) ,HttpStatus.OK);
-        }
-        System.out.println("================= TOO MANY HITS ===============");
-        return new ResponseEntity<>("TOO MANY HITS!!!!!! PLEASE TRY AFTER SOMETIME!!!!",HttpStatus.TOO_MANY_REQUESTS);
-    }
 
 
 }

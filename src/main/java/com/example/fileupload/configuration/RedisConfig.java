@@ -53,11 +53,13 @@ public class RedisConfig  {
         return oc;
     }
 
+
     @Bean
     public EmployeeRepo employeeRepository(RedisTemplate redisTemplate ){
         EmployeeRepo er = new EmployeeRepo(redisTemplate);
         return er;
     }
+    
 
 }
 
