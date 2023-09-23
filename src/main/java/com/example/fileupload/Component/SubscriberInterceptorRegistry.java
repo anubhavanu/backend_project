@@ -12,6 +12,6 @@ public class SubscriberInterceptorRegistry implements WebMvcConfigurer {
     SubscriberInterceptor subscriberInterceptors;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(subscriberInterceptors);
+        registry.addInterceptor(subscriberInterceptors).addPathPatterns("/find_office/{id}");
     }
 }

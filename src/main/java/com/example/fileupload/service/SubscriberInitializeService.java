@@ -10,7 +10,8 @@ import java.time.Duration;
 
 @Service
 public class SubscriberInitializeService {
-    private Bucket buckets;
+
+     private Bucket bucket;
     public Bucket subscriber_Initialize(String subscription)
     {
 
@@ -40,9 +41,9 @@ public class SubscriberInitializeService {
         Refill refill=Refill.of(refillCount, Duration.ofMinutes(minutescount));
         Bandwidth limit = Bandwidth.classic(bucketSize, refill);
 
-        buckets= Bucket4j.builder()
+        bucket= Bucket4j.builder()
                 .addLimit(limit).build();
-        return buckets;
+        return bucket;
 
     }
 }

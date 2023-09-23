@@ -2,7 +2,9 @@ package com.example.fileupload.interceptor;
 
 import com.example.fileupload.model.secondary.Subscriber;
 import com.example.fileupload.repository.secondary.SubscriberRepository;
+import com.example.fileupload.service.OfficeService;
 import com.example.fileupload.service.SubscriberInitializeService;
+import io.github.bucket4j.Bucket;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,12 @@ public class SubscriberInterceptor implements HandlerInterceptor {
 
     @Autowired
     SubscriberInitializeService subscriberInitializeServices;
+
+//    @Autowired
+//    Bucket4JController bucket4JController;
+
+    @Autowired
+    OfficeService officeServices;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("SubscriberInterceptor -preHandle");
@@ -33,13 +41,32 @@ public class SubscriberInterceptor implements HandlerInterceptor {
 
 
             if (s!=null) {
-                subscriberInitializeServices.subscriber_Initialize(s.getSubscribed_plan());
+               Bucket bucket= subscriberInitializeServices.subscriber_Initialize(s.getSubscribed_plan());
+               if(!bucket.tryConsume(1))
+               {
+//                   return ResponseEntity.badRequest()
+//
+//                           .contentType(MediaType.parseMediaType("application/String"))
+//                           .body("!!!!!!!SYSTEM ERROR !!!!!!!  TO MANY HITS!!!!!!   PLEASE TRY AFTER SOMETIME!!!!!");
+//
+                  // response.getWriter().write("!!!!!!!SYSTEM ERROR !!!!!!!  TO MANY HITS!!!!!!   PLEASE TRY AFTER SOMETIME!!!!!");
+                   response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE, "!!!!!!!SYSTEM ERROR !!!!!!!  TO MANY HITS!!!!!!   PLEASE TRY AFTER SOMETIME!!!!!");
+                   return false;
+               }
+
+//                return ResponseEntity.ok()
+//
+//                        .contentType(MediaType.parseMediaType("application/String"))
+//                        .body("API   HIT    SUCCESSFUL");//("API   HIT    SUCCESSFUL");
+ //              response.getWriter().write("API   HIT    SUCCESSFUL!!!!!!!");
                 return true;
             }
         }
 
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return false;
+
+
 
 
 
@@ -57,9 +84,6 @@ public class SubscriberInterceptor implements HandlerInterceptor {
         log.info("SubscriberInterceptor -preHandle");
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new SubscriberInterceptor());
-//    }
+
 
 }
