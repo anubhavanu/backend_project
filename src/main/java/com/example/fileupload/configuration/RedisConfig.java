@@ -6,12 +6,15 @@ import com.example.fileupload.model.infosys.Employee;
 import com.example.fileupload.model.infosys.Office;
 import com.example.fileupload.repository.cache.EmployeeRepo;
 import com.example.fileupload.repository.cache.OfficeCacheRepo;
+import io.github.bucket4j.Bucket;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.util.Map;
 
 @Configuration
 public class RedisConfig  {
@@ -59,7 +62,14 @@ public class RedisConfig  {
         EmployeeRepo er = new EmployeeRepo(redisTemplate);
         return er;
     }
-    
+
+    private Map<String, Bucket> user_bucket_map;
+//    @Bean
+//    public Map<String, Bucket> user_bucket_mapping()
+//    {
+//        return user_bucket_map;
+//    }
+
 
 }
 

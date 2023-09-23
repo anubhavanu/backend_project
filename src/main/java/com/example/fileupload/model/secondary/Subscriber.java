@@ -19,4 +19,6 @@ public class Subscriber {
     private String subscribed_plan;
 
 
+
+
 }

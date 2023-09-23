@@ -17,4 +17,9 @@ public class Exam {
 
     @Column (name="exam_type")
     private String exam_type;
+
+
+
+
+
 }

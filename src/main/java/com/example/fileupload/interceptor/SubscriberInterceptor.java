@@ -2,9 +2,7 @@ package com.example.fileupload.interceptor;
 
 import com.example.fileupload.model.secondary.Subscriber;
 import com.example.fileupload.repository.secondary.SubscriberRepository;
-import com.example.fileupload.service.OfficeService;
 import com.example.fileupload.service.SubscriberInitializeService;
-import io.github.bucket4j.Bucket;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -22,54 +20,41 @@ public class SubscriberInterceptor implements HandlerInterceptor {
     @Autowired
     SubscriberInitializeService subscriberInitializeServices;
 
+
+
+//    @Autowired
+//    Bucket bucket;
+
 //    @Autowired
 //    Bucket4JController bucket4JController;
+//    private Map<String,Bucket> user_bucket_map;
 
-    @Autowired
-    OfficeService officeServices;
+//    @Autowired
+//    OfficeService officeServices;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("SubscriberInterceptor -preHandle");
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null) {
-
             String[] parts = authHeader.split(":");
             String username = parts[1];
             String pass = parts[0];
             Subscriber s=subscriberRepositories.find_Subscriber_By_Subscriber_name(username);
-
-
-
             if (s!=null) {
-               Bucket bucket= subscriberInitializeServices.subscriber_Initialize(s.getSubscribed_plan());
-               if(!bucket.tryConsume(1))
-               {
-//                   return ResponseEntity.badRequest()
-//
-//                           .contentType(MediaType.parseMediaType("application/String"))
-//                           .body("!!!!!!!SYSTEM ERROR !!!!!!!  TO MANY HITS!!!!!!   PLEASE TRY AFTER SOMETIME!!!!!");
-//
-                  // response.getWriter().write("!!!!!!!SYSTEM ERROR !!!!!!!  TO MANY HITS!!!!!!   PLEASE TRY AFTER SOMETIME!!!!!");
-                   response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE, "!!!!!!!SYSTEM ERROR !!!!!!!  TO MANY HITS!!!!!!   PLEASE TRY AFTER SOMETIME!!!!!");
-                   return false;
-               }
 
-//                return ResponseEntity.ok()
-//
-//                        .contentType(MediaType.parseMediaType("application/String"))
-//                        .body("API   HIT    SUCCESSFUL");//("API   HIT    SUCCESSFUL");
- //              response.getWriter().write("API   HIT    SUCCESSFUL!!!!!!!");
-                return true;
+
+                    if(!subscriberInitializeServices.subscriber_Initialize(s.getSubscribed_plan(),username).tryConsume(1))
+                    {
+                        response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE, "!!!!!!!SYSTEM ERROR !!!!!!!  TO MANY HITS!!!!!!   PLEASE TRY AFTER SOMETIME!!!!!");
+                        return false;
+                    }
+                    return true;
+
             }
         }
 
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         return false;
-
-
-
-
-
 
     }
 

@@ -7,16 +7,21 @@ import io.github.bucket4j.Refill;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class SubscriberInitializeService {
 
-     private Bucket bucket;
-    public Bucket subscriber_Initialize(String subscription)
-    {
-
-        return subs(subscription);
-
+    private Map<String,Bucket> user_bucket_map= new HashMap<>();
+    public Bucket subscriber_Initialize(String subscription,String user_name) {
+        if (user_bucket_map!=null && user_bucket_map.get(user_name) != null  )
+            return user_bucket_map.get(user_name);
+        else {
+            Bucket b= subs(subscription);
+            user_bucket_map.put(user_name,b);
+            return b;
+        }
     }
 
     public Bucket subs(String plan)
@@ -41,7 +46,7 @@ public class SubscriberInitializeService {
         Refill refill=Refill.of(refillCount, Duration.ofMinutes(minutescount));
         Bandwidth limit = Bandwidth.classic(bucketSize, refill);
 
-        bucket= Bucket4j.builder()
+        Bucket bucket= Bucket4j.builder()
                 .addLimit(limit).build();
         return bucket;
 
