@@ -23,8 +23,6 @@ services:
   backend_project:
     build: ./
     image: backend_project_image
-    deploy:
-      replicas: 2
     container_name: backend_project_container
     environment:
       AWS_ACCESS_KEY_ID: AKIAVUQ57EQQRAA3676N
