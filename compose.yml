@@ -20,8 +20,8 @@ services:
     volumes:
       - redis:/var/lib/redis
 
-  conatainer_build:
-    build: /home/ec2-user/backend_project
+  backend_project:
+    build: ./
     image: backend_project_image
     container_name: backend_project_container
     environment:
