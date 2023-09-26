@@ -31,7 +31,7 @@ services:
       - 8081:8081
     deploy:
       mode: replicated
-      replicas: 4
+      replicas: 2
 
 volumes:
   redis:
