@@ -33,14 +33,6 @@ services:
       mode: replicated
       replicas: 2
 
-  proxy:
-    build: ./
-    image: nginx:latest
-    ports:
-      - 80:80
-    deploy:
-      replicas: 2
-
 volumes:
   redis:
   db:
