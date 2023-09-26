@@ -29,10 +29,10 @@ services:
       AWS_SECRET_ACCESS_KEY: EWqLtDhLe4UK2WYn4RAnE5oeMbh7PrtVLST9L+nL
     ports:
       - 8081:8081
-    deploy:
-      mode: replicated
-      replicas: 4
-      endpoint_mode: vip
+  deploy:
+    mode: replicated
+    replicas: 4
+    endpoint_mode: vip
 
 volumes:
   redis:
