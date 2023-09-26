@@ -37,11 +37,9 @@ services:
     build: ./
     image: nginx:latest
     ports:
-      -80:80
+      - 80:80
     deploy:
-      placement:
-        constraints: [node.role == manager]
-    depends_on: backend_project
+      replicas: 2
 
 volumes:
   redis:
