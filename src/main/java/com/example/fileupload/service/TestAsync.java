@@ -1,9 +1,9 @@
 package com.example.fileupload.service;
 
 import com.example.fileupload.model.primary.CountryImp;
-import com.example.fileupload.model.secondary.SecondaryCountryImp;
+import com.example.fileupload.model.primary.SecondaryCountryImp;
 import com.example.fileupload.repository.primary.CountryRepository;
-import com.example.fileupload.repository.secondary.SecondaryCountryRepository;
+import com.example.fileupload.repository.primary.SecondaryCountryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

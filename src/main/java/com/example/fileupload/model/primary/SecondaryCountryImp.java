@@ -1,4 +1,4 @@
-package com.example.fileupload.model.secondary;
+package com.example.fileupload.model.primary;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
