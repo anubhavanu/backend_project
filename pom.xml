@@ -92,6 +92,11 @@
 			<artifactId>sqs</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.github.vladimir-bukhtoyarov</groupId>
+			<artifactId>bucket4j-core</artifactId>
+			<version>7.6.0</version>
+		</dependency>
+		<dependency>
 			<groupId>com.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
 			<version>${opencsv.version}</version>
@@ -120,6 +125,11 @@
 			<groupId>com.vladmihalcea</groupId>
 			<artifactId>hibernate-types-60</artifactId>
 			<version>2.21.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>3.1.1</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -151,7 +161,7 @@
 					<schemas>
 						<schema>public</schema>
 					</schemas>
-					<url>jdbc:postgresql://ec2-15-206-91-250.ap-south-1.compute.amazonaws.com:2000/quartz</url>
+					<url>jdbc:postgresql://ec2-13-127-95-24.ap-south-1.compute.amazonaws.com:2000/quartz</url>
 
 				</configuration>
 			</plugin>
