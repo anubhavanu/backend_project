@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "description": "The person's first name."
+    },
+    "age": {
+      "type": "integer",
+      "description": "Enter your age",
+      "minimum": 0
+    },
+    "salary": {
+      "description": "get your salary.",
+      "type": "number",
+      "minimum": 100
+    },
+    "isValid": {
+      "description": "get isvalid",
+      "type": "string"
+    },
+    "joiningDate": {
+      "description": "joiningDate enter",
+      "type": "string",
+      "format": "date"
+    }
+  }
+}

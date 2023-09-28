@@ -2,7 +2,10 @@ package com.example.fileupload.Component;
 
 import com.example.fileupload.dto.Employee;
 import com.example.fileupload.dto.JsonSchema;
+import com.example.fileupload.model.secondary.MasterFileUploads;
+import com.example.fileupload.repository.secondary.MasterFileUploadsRepository;
 import com.example.fileupload.service.TestAsync;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -27,7 +30,8 @@ public class TestClass {
     static Logger logger = LoggerFactory.getLogger(TestClass.class);
     @Autowired
     Job nachProcessJob;
-
+    @Autowired
+    MasterFileUploadsRepository mfuRepo;
     @Autowired
     JobLauncher jbLauncher;
     public  void Convert() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException {
@@ -75,8 +79,17 @@ public class TestClass {
 
     public void nachUploadLauncher() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 
+       MasterFileUploads mfu= mfuRepo.findByBulkUploadName("nachUpload");
+       JsonNode vs= mfu.getJsonValidationSchema();
+
         JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis())
+                .addString("csvFileName","uploads/employee.csv")
+                .addString("stringSchemaJson",vs.toString())
+                .addString("schemaFile","uploads/jsonSchema.json")
                 .toJobParameters();
+
+
+
         jbLauncher.run(nachProcessJob, jobParameters);
 
     }
