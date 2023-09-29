@@ -145,7 +145,7 @@
 					<schemas>
 						<schema>public</schema>
 					</schemas>
-					<url>jdbc:postgresql://ec2-15-206-91-250.ap-south-1.compute.amazonaws.com:2000/quartz</url>
+					<url>jdbc:postgresql://ec2-13-234-202-119.ap-south-1.compute.amazonaws.com:2000/quartz</url>
 
 				</configuration>
 			</plugin>
