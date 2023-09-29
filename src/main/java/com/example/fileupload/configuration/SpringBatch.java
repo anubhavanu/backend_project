@@ -19,31 +19,24 @@ import javax.sql.DataSource;
 public class SpringBatch {
 
     @Bean("jbRepository")
-//    @DependsOn("quartzdatasource")
-    public JobRepository jbRepository( @Qualifier("secondarydb") DataSource quartzdatasource,
-                                       @Qualifier("secondaryTransactionManager") PlatformTransactionManager transactionManager
+    public JobRepository jbRepository( @Qualifier("primarydb") DataSource quartzdatasource,
+                                       @Qualifier("primaryTransactionManager") PlatformTransactionManager transactionManager
                                        ) throws Exception {
         JobRepositoryFactoryBean jobRepositoryFactoryBean = new JobRepositoryFactoryBean();
         jobRepositoryFactoryBean.setDatabaseType(DatabaseType.POSTGRES.name());
         jobRepositoryFactoryBean.setDataSource(quartzdatasource);
         jobRepositoryFactoryBean.setTransactionManager(transactionManager);
         jobRepositoryFactoryBean.setIsolationLevelForCreate("ISOLATION_DEFAULT");
-        jobRepositoryFactoryBean.setTablePrefix("BATCH_");
-//        jobRepositoryFactoryBean.setIncrementerFactory(new DefaultDataFieldMaxValueIncrementerFactory(dataSource) {
-//            @Override
-//            public DataFieldMaxValueIncrementer getIncrementer(String incrementerType, String incrementerName) {
-//                return new SqlServerSequenceMaxValueIncrementer(dataSource, incrementerName);
-//            }
-//        });
+        jobRepositoryFactoryBean.setTablePrefix("batch_");
         jobRepositoryFactoryBean.afterPropertiesSet();
         JobRepository jbr= jobRepositoryFactoryBean.getObject();
          return jbr;
     }
 
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        return new ResourcelessTransactionManager();
-    }
+//    @Bean
+//    public PlatformTransactionManager transactionManager() {
+//        return new ResourcelessTransactionManager();
+//    }
     @Bean
     public JobLauncher jbLauncher( JobRepository jbRepository) throws Exception {
         TaskExecutorJobLauncher jobLauncher = new TaskExecutorJobLauncher();

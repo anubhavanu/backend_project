@@ -36,6 +36,7 @@ public class TestAsync {
         cou1.setCapital("capita44455");
 
         cr.save(cou1);
+
 //        CountryImp cou3 = cr.getById("name1112");
 
 
