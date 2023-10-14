@@ -28,7 +28,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      ~/mongo/data:/data/mongo
+      - mongo:/data/db
 
 
   backend_project:
