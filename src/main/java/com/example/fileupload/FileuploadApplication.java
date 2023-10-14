@@ -1,5 +1,6 @@
 package com.example.fileupload;
 
+import com.example.fileupload.configuration.MongoDbConfig;
 import com.example.fileupload.service.EmployeeService;
 import com.example.fileupload.service.SchedulerService;
 import com.example.fileupload.service.TestAsync;
@@ -44,6 +45,7 @@ public class FileuploadApplication extends Exception{
 
 			SchedulerService schedulerService = context.getBean(SchedulerService.class);
 			schedulerService.StartSchedulerService();
+			MongoDbConfig mc=context.getBean(MongoDbConfig.class);
 //			schedulerService.schedule();
 
 //			MessageSender messageSender = context.getBean(MessageSender.class);

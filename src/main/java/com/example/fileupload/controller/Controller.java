@@ -4,7 +4,9 @@ import com.example.fileupload.dto.Country;
 import com.example.fileupload.dto.JobRequest;
 import com.example.fileupload.model.infosys.Office;
 import com.example.fileupload.model.primary.User;
+import com.example.fileupload.model.primary.VoterTableMongodb;
 import com.example.fileupload.repository.primary.FlagImgRepository;
+import com.example.fileupload.repository.primary.VoterRepository;
 import com.example.fileupload.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.quartz.SchedulerException;
@@ -68,6 +70,8 @@ public class Controller {
 
     @Autowired
     EmployeeService employeeServices;
+    @Autowired
+    VoterRepository voterRepository;
 
 //    @Autowired
 //    Bucket4JController buckets;
@@ -281,6 +285,19 @@ public class Controller {
 
                 .contentType(MediaType.parseMediaType("application/String"))
                 .body("office deleted successfully");
+    }
+
+    @PostMapping("/addvoter")
+    public ResponseEntity<?> addingVoter(@RequestBody VoterTableMongodb voterTableMongodb)  {
+        voterRepository.save(voterTableMongodb);
+        return ResponseEntity.ok(voterTableMongodb);
+
+    }
+
+    @GetMapping("/viewvoter")
+    public ResponseEntity<?> viewingVoter()  {
+        voterRepository.findAll();
+        return ResponseEntity.ok(voterRepository.findAll());
     }
 
 
