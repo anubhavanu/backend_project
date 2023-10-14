@@ -36,7 +36,7 @@ public class RedisConfig  {
 
     @Bean
     public LettuceBasedProxyManager set_proxy_mgr() {
-        io.lettuce.core.RedisClient redisClient = RedisClient.create("redis://user:password/ec2-13-233-123-95.ap-south-1.compute.amazonaws.com/6379" );
+        io.lettuce.core.RedisClient redisClient = RedisClient.create("redis://user:password/ec2-13-233-123-95.ap-south-1.compute.amazonaws.com/6379");
         LettuceBasedProxyManager proxyManager = LettuceBasedProxyManager.builderFor(redisClient).build();
         return proxyManager;
     }
