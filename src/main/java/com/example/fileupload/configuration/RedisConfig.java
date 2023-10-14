@@ -6,7 +6,12 @@ import com.example.fileupload.model.infosys.Employee;
 import com.example.fileupload.model.infosys.Office;
 import com.example.fileupload.repository.cache.EmployeeRepo;
 import com.example.fileupload.repository.cache.OfficeCacheRepo;
+import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
+import io.github.bucket4j.BucketConfiguration;
+import io.github.bucket4j.Refill;
+import io.github.bucket4j.redis.lettuce.cas.LettuceBasedProxyManager;
+import io.lettuce.core.RedisClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -15,6 +20,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.time.Duration;
+import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
@@ -28,6 +35,23 @@ public class RedisConfig  {
 //        lcf.afterPropertiesSet();
 //        return lcf;
 //    }
+
+    @Bean
+    public LettuceBasedProxyManager set_proxy_mgr() {
+        io.lettuce.core.RedisClient redisClient = RedisClient.create("redis://user:password/ec2-13-127-95-24.ap-south-1.compute.amazonaws.com/6379");
+        LettuceBasedProxyManager proxyManager = LettuceBasedProxyManager.builderFor(redisClient).build();
+        return proxyManager;
+    }
+
+    @Bean
+     public        BucketConfiguration bconfig(int refillCount,int minutescount,int bucketSize)
+    {
+        BucketConfiguration configuration = BucketConfiguration.builder()
+                .addLimit(Bandwidth.classic(bucketSize, Refill.of(refillCount, Duration.ofMinutes(minutescount))))
+                .build();
+
+        return configuration;
+    }
 
 @Bean
     public RedisTemplate<String, Employee> redisTemplate(RedisConnectionFactory redisConnectionFactory) {

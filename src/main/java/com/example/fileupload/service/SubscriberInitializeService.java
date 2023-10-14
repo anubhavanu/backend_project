@@ -1,9 +1,9 @@
 package com.example.fileupload.service;
 
-import io.github.bucket4j.Bandwidth;
-import io.github.bucket4j.Bucket;
-import io.github.bucket4j.Bucket4j;
-import io.github.bucket4j.Refill;
+import com.example.fileupload.configuration.RedisConfig;
+import io.github.bucket4j.*;
+import io.github.bucket4j.redis.lettuce.cas.LettuceBasedProxyManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -12,6 +12,8 @@ import java.util.Map;
 
 @Service
 public class SubscriberInitializeService {
+    @Autowired
+    RedisConfig redisConfig;
 
     private Map<String,Bucket> user_bucket_map= new HashMap<>();
     public Bucket subscriber_Initialize(String subscription,String user_name) {
@@ -43,11 +45,16 @@ public class SubscriberInitializeService {
                 bucketSize=5;
 
         }
-        Refill refill=Refill.of(refillCount, Duration.ofMinutes(minutescount));
-        Bandwidth limit = Bandwidth.classic(bucketSize, refill);
 
-        Bucket bucket= Bucket4j.builder()
-                .addLimit(limit).build();
+//        Refill refill=Refill.of(refillCount, Duration.ofMinutes(minutescount));
+//        Bandwidth limit = Bandwidth.classic(bucketSize, refill);
+//
+//        Bucket bucket= Bucket4j.builder()
+//                .addLimit(limit).build();
+       LettuceBasedProxyManager proxyManager=redisConfig.set_proxy_mgr();
+        BucketConfiguration bconfig=redisConfig.bconfig(refillCount, minutescount, bucketSize);
+        byte[] key = new byte[0];
+        Bucket bucket=proxyManager.builder().build(key,bconfig);
         return bucket;
 
     }
