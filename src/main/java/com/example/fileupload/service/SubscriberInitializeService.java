@@ -2,7 +2,6 @@ package com.example.fileupload.service;
 
 import com.example.fileupload.configuration.RedisConfig;
 import io.github.bucket4j.*;
-import io.github.bucket4j.redis.lettuce.cas.LettuceBasedProxyManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,15 +45,15 @@ public class SubscriberInitializeService {
 
         }
 
-//        Refill refill=Refill.of(refillCount, Duration.ofMinutes(minutescount));
-//        Bandwidth limit = Bandwidth.classic(bucketSize, refill);
+        Refill refill=Refill.of(refillCount, Duration.ofMinutes(minutescount));
+        Bandwidth limit = Bandwidth.classic(bucketSize, refill);
 //
-//        Bucket bucket= Bucket4j.builder()
-//                .addLimit(limit).build();
-       LettuceBasedProxyManager proxyManager=redisConfig.set_proxy_mgr();
-        BucketConfiguration bconfig=redisConfig.bconfig(refillCount, minutescount, bucketSize);
+        Bucket bucket= Bucket4j.builder()
+                .addLimit(limit).build();
+//       LettuceBasedProxyManager proxyManager=redisConfig.set_proxy_mgr();
+//        BucketConfiguration bconfig=redisConfig.bconfig(refillCount, minutescount, bucketSize);
         byte[] key = new byte[0];
-        Bucket bucket=proxyManager.builder().build(key,bconfig);
+//        Bucket bucket=proxyManager.builder().build(key,bconfig);
         return bucket;
 
     }
