@@ -46,6 +46,7 @@ public class FileuploadApplication extends Exception{
 			SchedulerService schedulerService = context.getBean(SchedulerService.class);
 			schedulerService.StartSchedulerService();
 			MongoDbConfig mc=context.getBean(MongoDbConfig.class);
+//			MongoTemplate mongo = context.getBean(MongoTemplate.class);
 //			schedulerService.schedule();
 
 //			MessageSender messageSender = context.getBean(MessageSender.class);
