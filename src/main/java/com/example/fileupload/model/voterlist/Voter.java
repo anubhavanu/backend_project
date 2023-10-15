@@ -1,4 +1,4 @@
-package com.example.fileupload.model.primary;
+package com.example.fileupload.model.voterlist;
 
 
 import lombok.AllArgsConstructor;
@@ -7,10 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @Data
 @Document(collection = "voter")
-public class VoterTableMongodb {
+public class Voter {
     private int id;
     private String name;
     private int age;
-    private int city;
+    private String city;
 
 }

@@ -1,10 +1,7 @@
 package com.example.fileupload;
 
 import com.example.fileupload.configuration.MongoDbConfig;
-import com.example.fileupload.service.EmployeeService;
-import com.example.fileupload.service.SchedulerService;
-import com.example.fileupload.service.TestAsync;
-import com.example.fileupload.service.TestRepo;
+import com.example.fileupload.service.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -19,7 +16,10 @@ public class FileuploadApplication extends Exception{
 			ApplicationContext context  =SpringApplication.run(FileuploadApplication.class, args);
 			TestRepo tr=context.getBean(TestRepo.class);
 			EmployeeService es=context.getBean(EmployeeService.class);
-			es.cacheEmployee();
+//			es.cacheEmployee();
+
+			VoterTest vt=context.getBean(VoterTest.class);
+			vt.addVoter();
 
 //			ExecutorService executor = Executors.newFixedThreadPool(5);
 //			executor.submit(() -> {

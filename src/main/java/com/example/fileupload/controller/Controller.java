@@ -4,9 +4,8 @@ import com.example.fileupload.dto.Country;
 import com.example.fileupload.dto.JobRequest;
 import com.example.fileupload.model.infosys.Office;
 import com.example.fileupload.model.primary.User;
-import com.example.fileupload.model.primary.VoterTableMongodb;
+import com.example.fileupload.model.voterlist.Voter;
 import com.example.fileupload.repository.primary.FlagImgRepository;
-import com.example.fileupload.repository.primary.VoterRepository;
 import com.example.fileupload.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.quartz.SchedulerException;
@@ -71,7 +70,7 @@ public class Controller {
     @Autowired
     EmployeeService employeeServices;
     @Autowired
-    VoterRepository voterRepository;
+    VoterTest voterTest;
 
 //    @Autowired
 //    Bucket4JController buckets;
@@ -288,16 +287,16 @@ public class Controller {
     }
 
     @PostMapping("/addvoter")
-    public ResponseEntity<?> addingVoter(@RequestBody VoterTableMongodb voterTableMongodb)  {
-        voterRepository.save(voterTableMongodb);
-        return ResponseEntity.ok(voterTableMongodb);
+    public ResponseEntity<?> addingVoter(@RequestBody Voter voter)  {
+        voterTest.addVoter(voter);
+        return  ResponseEntity.ok(voter);
 
     }
 
     @GetMapping("/viewvoter")
     public ResponseEntity<?> viewingVoter()  {
-        voterRepository.findAll();
-        return ResponseEntity.ok(voterRepository.findAll());
+
+        return (ResponseEntity<?>) ResponseEntity.ok(voterTest.viewVoter());
     }
 
 
