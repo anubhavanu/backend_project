@@ -1,11 +1,10 @@
 package com.example.fileupload.model.voterlist;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@AllArgsConstructor
+
 @Document(collection = "sharedetails")
 public class ShareDetails {
     private String shareName;

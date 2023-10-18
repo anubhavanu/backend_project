@@ -1,10 +1,12 @@
 package com.example.fileupload;
 
 import com.example.fileupload.configuration.MongoDbConfig;
+import com.example.fileupload.configuration.S3Configuration;
 import com.example.fileupload.service.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 
 @SpringBootApplication
@@ -19,7 +21,7 @@ public class FileuploadApplication extends Exception{
 //			es.cacheEmployee();
 
 			VoterTest vt=context.getBean(VoterTest.class);
-			vt.addVoter();
+//			vt.addVoter();
 
 //			ExecutorService executor = Executors.newFixedThreadPool(5);
 //			executor.submit(() -> {
@@ -46,7 +48,10 @@ public class FileuploadApplication extends Exception{
 			SchedulerService schedulerService = context.getBean(SchedulerService.class);
 			schedulerService.StartSchedulerService();
 			MongoDbConfig mc=context.getBean(MongoDbConfig.class);
-//			MongoTemplate mongo = context.getBean(MongoTemplate.class);
+
+			MongoTemplate mongo = context.getBean(MongoTemplate.class);
+			S3Configuration s3Configuration=context.getBean(S3Configuration.class);
+			S3MongoService s3MongoService=context.getBean(S3MongoService.class);
 //			schedulerService.schedule();
 
 //			MessageSender messageSender = context.getBean(MessageSender.class);

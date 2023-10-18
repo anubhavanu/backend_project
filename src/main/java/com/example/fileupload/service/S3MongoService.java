@@ -1,7 +1,7 @@
 package com.example.fileupload.service;
 
-import com.example.fileupload.helper.MyException;
 import com.example.fileupload.model.voterlist.ShareDetails;
+import com.example.fileupload.repository.voterlist.ShareRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -12,7 +12,6 @@ import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
-import software.amazon.awssdk.services.s3.model.S3Object;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,6 +23,9 @@ public class S3MongoService {
     private String bucketName;
     @Autowired
     S3Client s3Client;
+
+    @Autowired
+    ShareRepository shareRepository;
 
     public List<ShareDetails> csvToShareDetails(String filename)
     {
@@ -54,6 +56,10 @@ public class S3MongoService {
        }
 
 
+    }
+    public void addShareDetails(String filename)
+    {
+        shareRepository.saveAll(csvToShareDetails(filename));
     }
 
 }
