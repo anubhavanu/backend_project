@@ -12,13 +12,13 @@ public class VoterTest {
     @Autowired
     VoterRepository vr;
 
-    public void addVoter(){
-
-        Voter v= new Voter(1,"ashish", 19,"delhi");
-        vr.save(v);
-        System.out.println();
-
-    }
+//    public void addVoter(){
+//
+//        Voter v= new Voter(1,"ashish", 19,"delhi");
+//        vr.save(v);
+//        System.out.println();
+//
+//    }
 
 
     public void addVoter(Voter voter) {

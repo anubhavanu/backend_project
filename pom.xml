@@ -180,7 +180,7 @@
 					<schemas>
 						<schema>public</schema>
 					</schemas>
-					<url>jdbc:postgresql://ec2-3-109-144-227.ap-south-1.compute.amazonaws.com:2000/quartz</url>
+					<url>jdbc:postgresql://ec2-65-2-132-98.ap-south-1.compute.amazonaws.com:2000/quartz</url>
 
 				</configuration>
 			</plugin>
