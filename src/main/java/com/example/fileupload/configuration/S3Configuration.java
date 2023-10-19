@@ -14,7 +14,7 @@ public class S3Configuration {
     private String accessKey;
     @Value("${AWS_SECRET_ACCESS_KEY}")
     private String secretKey;
-    @Bean
+    @Bean("s3c")
     public S3Client  s3Client(){
         AwsCredentialsProvider credentialsProvider =  EnvironmentVariableCredentialsProvider.create();
         S3Client s3Client=S3Client.builder()
@@ -23,3 +23,5 @@ public class S3Configuration {
         return s3Client;
     }
 }
+
+//AWS_ACCESS_KEY_ID=AKIAVUQ57EQQRAA3676N;AWS_SECRET_ACCESS_KEY=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

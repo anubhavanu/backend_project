@@ -23,7 +23,7 @@ public class RedisConfig  {
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
         LettuceConnectionFactory lcf = new LettuceConnectionFactory();
-        lcf.setHostName("ec2-65-2-132-98.ap-south-1.compute.amazonaws.com");
+        lcf.setHostName("ec2-13-126-138-154.ap-south-1.compute.amazonaws.com");
         lcf.setPort(2001);
         lcf.afterPropertiesSet();
         return lcf;
