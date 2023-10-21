@@ -31,18 +31,18 @@ services:
       - mongo:/data/db
 
 
-  backend_project:
-    build: ./
-    image: backend_project_image
-    container_name: backend_project_container
-    environment:
-      AWS_ACCESS_KEY_ID: AKIAVUQ57EQQRAA3676N
-      AWS_SECRET_ACCESS_KEY: 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
-    ports:
-      - 8081:8081
-    deploy:
-      mode: replicated
-      replicas: 2
+#  backend_project:
+#    build: ./
+#    image: backend_project_image
+#    container_name: backend_project_container
+#    environment:
+#      AWS_ACCESS_KEY_ID: AKIAVUQ57EQQRAA3676N
+#      AWS_SECRET_ACCESS_KEY: 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
+#    ports:
+#      - 8081:8081
+#    deploy:
+#      mode: replicated
+#      replicas: 2
 
 volumes:
   redis:

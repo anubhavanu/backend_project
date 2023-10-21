@@ -15,7 +15,7 @@ public class MongoDbConfig  {
 
     @Bean
     public MongoClient mongo() {
-            ConnectionString connectionString = new ConnectionString("mongodb://username:password@ec2-13-126-138-154.ap-south-1.compute.amazonaws.com:27017/admin");
+            ConnectionString connectionString = new ConnectionString("mongodb://username:password@ec2-13-127-147-96.ap-south-1.compute.amazonaws.com:27017/admin");
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .build();
